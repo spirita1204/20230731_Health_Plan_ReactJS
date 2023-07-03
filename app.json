@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "healthPlan",
-    "slug": "healthPlan",
+    "slug": "healtplan",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a8c0170d-1840-4eec-8e7e-6159204c4011"
+      }
+    },
+    "owner": "daniel1204"
   }
 }
