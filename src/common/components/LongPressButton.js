@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'react-native';
 
 const LongPressButton = ({ leftLogo, leftText, rightLogo, onPress, dropdownData }) => {
@@ -10,8 +9,8 @@ const LongPressButton = ({ leftLogo, leftText, rightLogo, onPress, dropdownData 
     setIsDropdownVisible(true);
   };
 
-  const handleItemDelete = (index) => {
-    // Implement the logic to delete the selected item from dropdownData
+  const handleClick = (index) => {
+    console.log(index, 'index');
   };
 
   return (
@@ -32,7 +31,7 @@ const LongPressButton = ({ leftLogo, leftText, rightLogo, onPress, dropdownData 
       {isDropdownVisible && (
         <View style={styles.dropdownContainer}>
           {dropdownData.map((item, index) => (
-            <TouchableOpacity key={index} style={styles.dropdownItem} onPress={() => handleItemDelete(index)}>
+            <TouchableOpacity key={index} style={styles.dropdownItem} onPress={() => handleClick(index)}>
               <Text>{item}</Text>
             </TouchableOpacity>
           ))}

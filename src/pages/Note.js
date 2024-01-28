@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Fragment } from 'react'
 import LongPressButton from '../common/components/LongPressButton'
 import DonutPieChart from '../common/components/DonutPieChart';
 import HeatMapCharts from '../common/components/HeatMapCharts';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Image, ScrollView } from 'react-native';
 
 /**
- * 日記 
+ * 日記
  * 
  * @returns 
  */
-export default function Note() {
+export default function Note({navigation}) {
+    const handlClick = useCallback((choose) => {
+        console.log('handlClick', choose);
+        navigation.navigate('Foods', { choose: choose });
+    }, []);
+
     return (
         <Fragment>
             <ScrollView>
@@ -21,21 +26,25 @@ export default function Note() {
                         leftLogo={require('../../assets/english-breakfast.png')}
                         leftText={' 早餐'}
                         rightLogo={require('../../assets/plus.png')}
+                        onPress={() => { handlClick('breakfast') }}
                     ></LongPressButton>
                     <LongPressButton
                         leftLogo={require('../../assets/lunch-time.png')}
                         leftText={' 午餐'}
                         rightLogo={require('../../assets/plus.png')}
+                        onPress={() => { handlClick('lunch') }}
                     ></LongPressButton>
                     <LongPressButton
                         leftLogo={require('../../assets/christmas-dinner.png')}
                         leftText={' 晚餐'}
                         rightLogo={require('../../assets/plus.png')}
+                        onPress={() => { handlClick('dinner') }}
                     ></LongPressButton>
                     <LongPressButton
                         leftLogo={require('../../assets/sweets.png')}
                         leftText={' 點心'}
                         rightLogo={require('../../assets/plus.png')}
+                        onPress={() => { handlClick('sweets') }}
                     ></LongPressButton>
                     <View style={styles.horizontalSeparator} />
                     {/* 總結數據 */}
@@ -79,12 +88,12 @@ export default function Note() {
                     </View>
                     <View style={styles.horizontalSeparator} />
                     <Text style={styles.text}>{'脂肪: 10.00克'}</Text>
-                    <Text style={styles.text}>{'膽固醇:'}:</Text>
-                    <Text style={styles.text}>{'鈉: '}</Text>
-                    <Text style={styles.text}>{'碳水化合物: '}</Text>
-                    <Text style={styles.text}>{'膳食纖維: '}</Text>
-                    <Text style={styles.text}>{'糖'}</Text>
-                    <Text style={styles.text}>{'蛋白質: '}</Text>
+                    <Text style={styles.text}>{'膽固醇: 0毫克'}:</Text>
+                    <Text style={styles.text}>{'鈉: 0毫克'}</Text>
+                    <Text style={styles.text}>{'碳水化合物: 0.00克'}</Text>
+                    <Text style={styles.text}>{'膳食纖維: 0.0克'}</Text>
+                    <Text style={styles.text}>{'糖: 0.00克'}</Text>
+                    <Text style={styles.text}>{'蛋白質: 20.10克'}</Text>
                     <View style={styles.horizontalSeparator} />
                 </View>
             </ScrollView>

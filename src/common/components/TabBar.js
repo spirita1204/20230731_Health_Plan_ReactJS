@@ -8,12 +8,12 @@ import Note from '../../pages/Note';
 
 export default function TabBar() {
     const Tab = createBottomTabNavigator();
-    
+
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
                 headerShown: false, // Hides the header for each screen
-                tabBarStyle: {  
+                tabBarStyle: {
                     backgroundColor: '#888888',
                 },
                 tabBarIcon: ({ focused, color, size }) => { //focused為連結到該頁面的意思
@@ -53,7 +53,12 @@ export default function TabBar() {
                     }
                     return (
                         <Image
-                            style={{ width: iconSize, height: iconSize, top: iconTop, zIndex: 10 }}
+                            style={{ 
+                                width: iconSize, 
+                                height: iconSize, 
+                                top: iconTop, 
+                                zIndex: 10
+                            }}
                             source={iconPath}
                         />
                     );
@@ -72,7 +77,15 @@ export default function TabBar() {
                         showFont = focused ? 'none' : 'flex';
                     }
                     return (
-                        <Text style={{ fontSize: 12, marginTop: 9, marginBottom: 7, padding: 0, display: showFont, color: '#707070' }} >
+                        <Text style={{
+                            fontSize: 12,
+                            marginTop: 9,
+                            marginBottom: 7,
+                            padding: 0,
+                            display: showFont,
+                            color: '#DDDDDD',
+                           
+                        }} >
                             {route.name}
                         </Text>
                     );
