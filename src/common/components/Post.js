@@ -22,7 +22,7 @@ const Post = ({ username, text, imageSource }) => {
       <View style={styles.header}>
         <Text style={styles.username}>{username}</Text>
         <TouchableOpacity style={styles.settingsButton}>
-          <Ionicons name="ellipsis-horizontal" size={24} color="#000" />
+          <Ionicons name="ellipsis-horizontal" size={24} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
 
@@ -37,7 +37,7 @@ const Post = ({ username, text, imageSource }) => {
         <Ionicons
           name={isLiked ? 'heart' : 'heart-outline'}
           size={24}
-          color={isLiked ? 'red' : '#000'}
+          color={isLiked ? 'red' : '#FFFFFF'}
         />
         <Text style={styles.likeCount}>{likes}</Text>
       </TouchableOpacity>
@@ -54,7 +54,7 @@ const Post = ({ username, text, imageSource }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: '#666666',
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
@@ -65,12 +65,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 10,
-    // Add other styles for header
   },
   username: {
     fontSize: 16,
     fontWeight: 'bold',
-    // Add other styles for username
+    color: '#FFFFFF'
   },
   settingsButton: {
     // Add styles for settings button (e.g., icon size, color, etc.)
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
   textContent: {
     fontSize: 14,
     marginBottom: 10,
-    // Add other styles for text content
+    color: '#FFFFFF'
   },
   image: {
     width: '100%',
@@ -94,11 +93,11 @@ const styles = StyleSheet.create({
   },
   likeCount: {
     marginLeft: 5,
-    // Add other styles for like count
+    color: '#FFFFFF'
   },
   comment: {
     fontSize: 14,
-    // Add other styles for comments
+    color: '#FFFFFF'
   },
 });
 

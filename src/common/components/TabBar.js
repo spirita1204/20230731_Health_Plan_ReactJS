@@ -13,6 +13,9 @@ export default function TabBar() {
         <Tab.Navigator
             screenOptions={({ route }) => ({
                 headerShown: false, // Hides the header for each screen
+                tabBarStyle: {  
+                    backgroundColor: '#888888',
+                },
                 tabBarIcon: ({ focused, color, size }) => { //focused為連結到該頁面的意思
                     let iconPath;
                     let iconSize;
