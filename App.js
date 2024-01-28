@@ -15,7 +15,7 @@ export default App = () => {
       {/* 在這裡建立了堆疊導航，用於處理不同頁面之間的導航。 */}
       {/* 首頁設定為 "Login" 頁面 */}
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={Login} />
+        {/* <Stack.Screen name="Login" component={Login} /> */}
         <Stack.Screen name="HomePage" component={HomePage} />
       </Stack.Navigator>
     </NavigationContainer>

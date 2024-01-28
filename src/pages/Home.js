@@ -3,6 +3,10 @@ import { Fragment } from 'react'
 import Post from '../common/components/Post'
 import { View, ScrollView, StyleSheet } from 'react-native';
 
+/**
+ *  首頁
+ * @returns 
+ */
 export default function Home() {
     return (
         <Fragment>

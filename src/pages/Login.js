@@ -3,6 +3,13 @@ import { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { ImageBackground } from 'react-native';
 import { Fragment } from 'react';
+
+/**
+ *  登入頁
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
 const Login = ({ navigation }) => {
     const image = { uri: 'https://img-blog.csdnimg.cn/2cb54c4f2a43449f8270e00f5985861b.gif' };
 

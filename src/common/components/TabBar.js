@@ -8,7 +8,7 @@ import Note from '../../pages/Note';
 
 export default function TabBar() {
     const Tab = createBottomTabNavigator();
-
+    
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -84,3 +84,9 @@ export default function TabBar() {
         </Tab.Navigator>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#666666'
+    }
+});
