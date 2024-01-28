@@ -12,8 +12,10 @@ import { Image, ScrollView } from 'react-native';
  * @returns 
  */
 export default function Note({navigation}) {
+    /**
+     * 導向食物導覽頁
+     */
     const handlClick = useCallback((choose) => {
-        console.log('handlClick', choose);
         navigation.navigate('Foods', { choose: choose });
     }, []);
 
@@ -26,25 +28,25 @@ export default function Note({navigation}) {
                         leftLogo={require('../../assets/english-breakfast.png')}
                         leftText={' 早餐'}
                         rightLogo={require('../../assets/plus.png')}
-                        onPress={() => { handlClick('breakfast') }}
+                        onPress={() => { handlClick('BREAKFAST') }}
                     ></LongPressButton>
                     <LongPressButton
                         leftLogo={require('../../assets/lunch-time.png')}
                         leftText={' 午餐'}
                         rightLogo={require('../../assets/plus.png')}
-                        onPress={() => { handlClick('lunch') }}
+                        onPress={() => { handlClick('LUNCH') }}
                     ></LongPressButton>
                     <LongPressButton
                         leftLogo={require('../../assets/christmas-dinner.png')}
                         leftText={' 晚餐'}
                         rightLogo={require('../../assets/plus.png')}
-                        onPress={() => { handlClick('dinner') }}
+                        onPress={() => { handlClick('DINNER') }}
                     ></LongPressButton>
                     <LongPressButton
                         leftLogo={require('../../assets/sweets.png')}
                         leftText={' 點心'}
                         rightLogo={require('../../assets/plus.png')}
-                        onPress={() => { handlClick('sweets') }}
+                        onPress={() => { handlClick('SWEETS') }}
                     ></LongPressButton>
                     <View style={styles.horizontalSeparator} />
                     {/* 總結數據 */}

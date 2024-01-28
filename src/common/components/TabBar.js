@@ -2,9 +2,11 @@ import React from 'react'
 import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Header from './Header';
 import Home from '../../pages/Home';
 import Note from '../../pages/Note';
+import Premium from '../../pages/Premium';
+import Report from '../../pages/Report';
+import MyPlace from '../../pages/MyPlace';
 
 export default function TabBar() {
     const Tab = createBottomTabNavigator();
@@ -93,10 +95,10 @@ export default function TabBar() {
             })}
         >
             <Tab.Screen name="首頁" component={Home} />
-            <Tab.Screen name="我" component={Header} />
+            <Tab.Screen name="我" component={MyPlace} />
             <Tab.Screen name="日記" component={Note} />
-            <Tab.Screen name="報告" component={Header} />
-            <Tab.Screen name="進階版" component={Header} />
+            <Tab.Screen name="報告" component={Report} />
+            <Tab.Screen name="進階版" component={Premium} />
         </Tab.Navigator>
     )
 }
