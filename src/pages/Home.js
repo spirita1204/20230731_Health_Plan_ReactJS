@@ -6,7 +6,7 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 export default function Home() {
     return (
         <Fragment>
-            <ScrollView>
+            <ScrollView style={styles.container}>
                 <Post
                     username={'daniel'}
                     text={'hello world!'}
@@ -26,3 +26,10 @@ export default function Home() {
         </Fragment>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 10, // Add padding around the content
+        backgroundColor: '#444444'
+    },
+});

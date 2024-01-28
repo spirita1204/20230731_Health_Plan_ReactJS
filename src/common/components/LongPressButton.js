@@ -44,7 +44,7 @@ const LongPressButton = ({ leftLogo, leftText, rightLogo, onPress, dropdownData 
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
+    marginVertical: 4,
   },
   button: {
     flexDirection: 'row',
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     borderColor: '#ccc',
+    backgroundColor: '#666666'
   },
   leftContent: {
     flexDirection: 'row',
@@ -65,6 +66,7 @@ const styles = StyleSheet.create({
   leftText: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#FFFFFF'
   },
   dropdownContainer: {
     marginTop: 5,
