@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import { Fragment } from 'react'
 import LongPressButton from '../common/components/LongPressButton'
-import DonutPieChart from '../common/components/DonutPieChart';
-import HeatMapCharts from '../common/components/HeatMapCharts';
+import DonutPieChart from '../common/components/Charts/DonutPieChart';
+import HeatMapCharts from '../common/components/Charts/HeatMapCharts';
 import { View, Text, StyleSheet } from 'react-native';
 import { Image, ScrollView } from 'react-native';
 
