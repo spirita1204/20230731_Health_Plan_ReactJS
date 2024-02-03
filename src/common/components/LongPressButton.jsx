@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Image } from 'react-native';
+import PropTypes from 'prop-types';
 
 const LongPressButton = ({ leftLogo, leftText, rightLogo, onPress, dropdownData }) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -39,6 +40,14 @@ const LongPressButton = ({ leftLogo, leftText, rightLogo, onPress, dropdownData 
       )}
     </View>
   );
+};
+
+LongPressButton.propTypes = {
+  leftLogo: PropTypes.number,
+  leftText: PropTypes.string.isRequired,
+  rightLogo: PropTypes.number,
+  onPress: PropTypes.func.isRequired,
+  dropdownData: PropTypes.arrayOf(PropTypes.string),
 };
 
 const styles = StyleSheet.create({

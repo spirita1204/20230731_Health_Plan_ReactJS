@@ -5,16 +5,17 @@ import DonutPieChart from '../common/components/Charts/DonutPieChart';
 import HeatMapCharts from '../common/components/Charts/HeatMapCharts';
 import { View, Text, StyleSheet } from 'react-native';
 import { Image, ScrollView } from 'react-native';
+import PropTypes from 'prop-types';
 
 /**
  * 日記
  * 
  * @returns 
  */
-export default function Note({navigation}) {
+export default function Note({ navigation }) {
     /**
-     * 導向食物導覽頁
-     */
+       * 導向食物導覽頁
+       */
     const handlClick = useCallback((choose) => {
         navigation.navigate('Foods', { choose: choose });
     }, []);
@@ -102,6 +103,13 @@ export default function Note({navigation}) {
         </Fragment >
     )
 }
+
+Note.propTypes = {
+    navigation: PropTypes.shape({
+        navigate: PropTypes.func.isRequired,
+    }).isRequired,
+};
+
 const styles = StyleSheet.create({
     horizontalSeparator: {
         height: 1,

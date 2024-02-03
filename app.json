@@ -15,7 +15,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true  
     },
     "android": {
       "adaptiveIcon": {
@@ -28,7 +28,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "a8c0170d-1840-4eec-8e7e-6159204c4011"
+        "projectId": "c10681cf-1eb2-4230-ad8d-675b3fa88eb6"
       }
     },
     "owner": "daniel1204"

@@ -69,6 +69,13 @@ const Login = ({ navigation }) => {
     );
 };
 
+
+Login.propTypes = {
+    navigation: PropTypes.shape({
+        navigate: PropTypes.func.isRequired,
+    }).isRequired,
+};
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
