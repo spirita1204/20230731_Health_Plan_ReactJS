@@ -10,6 +10,10 @@ import PropTypes from 'prop-types';
 /**
  * 日記
  * 
+ * 在React中，当你使用navigation.navigate()导航到另一个屏幕时，React Navigation会将navigation对象传递给你的组件。这个navigation对象包含了一些方法，比如navigate，goBack等，以及当前屏幕的一些信息。
+ * 在你的代码中，Note组件是通过导航器（可能是Stack Navigator或Tab Navigator等）导航到的其中一个屏幕。当你在导航器中配置Note组件时，你可能传递了navigation属性给它，这样它就能够使用导航器提供的导航功能了。
+ * 所以，当你调用navigation.navigate('Foods', { choose: choose })时，你实际上是在使用导航器提供的导航功能，将屏幕切换到了名为'Foods'的另一个屏幕，并且将一个参数对象传递给了'Foods'屏幕。
+ *
  * @returns 
  */
 export default function Note({ navigation }) {

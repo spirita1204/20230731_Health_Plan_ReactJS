@@ -6,13 +6,16 @@ import { TabView, TabBar } from 'react-native-tab-view'
 import ListInfo from '../common/components/ListInfo'
 import PropTypes from 'prop-types';
 import SearchHistory from '../common/components/SearchHistory'
+import ImageList from '../common/components/ImageList'
 
 /**
  * 食譜
  * @returns
  */
 const FirstRoute = () => (
-    <View style={{ flex: 1, backgroundColor: styles.container.backgroundColor }} />
+    <View style={styles.imageListContainer}>
+        <ImageList></ImageList>
+    </View>
 )
 
 /**
@@ -95,7 +98,7 @@ const ForthRoute = () => (
 // 設定tabBar顏色
 const renderTabBar = (props) => (
     <TabBar
-        {...props}
+        {...props}// 顯示props.navigationStateroutes 資訊[食譜, 食物, 最近吃過, 經常吃的]
         style={{ backgroundColor: '#888888' }}
         indicatorStyle={{
             backgroundColor: '#FFFFFF',
@@ -105,20 +108,20 @@ const renderTabBar = (props) => (
 )
 
 export default function Foods() {
-    const route = useRoute()
-    console.log(route?.params?.choose, 'route')
+    const route = useRoute();
+    console.log(route?.params?.choose, 'route');
 
-    const [searchText, setSearchText] = useState('')
-    const [index, setIndex] = React.useState(0)
+    const [searchText, setSearchText] = useState('');
+    const [index, setIndex] = useState(0);
 
-    const layout = useWindowDimensions()
+    const layout = useWindowDimensions();
 
-    const [routes] = React.useState([
+    const routes = [
         { key: 'first', title: '食譜' },
         { key: 'second', title: '食物' },
         { key: 'third', title: '最近吃過' },
         { key: 'forth', title: '經常吃的' }
-    ])
+    ];
 
     const renderScene = ({ route }) => {
         switch (route.key) {
@@ -132,7 +135,7 @@ export default function Foods() {
             case 'forth':
                 return <ForthRoute />
             default:
-                return null
+                return <FirstRoute />
         }
     }
 
@@ -155,6 +158,10 @@ export default function Foods() {
 }
 
 const styles = StyleSheet.create({
+    imageListContainer: {
+        paddingTop: 7,
+        backgroundColor: '#444444'
+    },
     container: {
         padding: 10, // Add padding around the content
         backgroundColor: '#444444'

@@ -7,11 +7,11 @@ import Note from './src/pages/Note';
 import CustomHeaderLeft from './src/common/components/Header/CustomHeaderLeft';
 import CustomHeaderModal from './src/common/components/Header/CustomHeaderModal';
 import CustomHeaderCamera from './src/common/components/Header/CustomHeaderCamera';
+import React from 'react';
 
 const Stack = createStackNavigator();
 
-export default App = () => {
-
+const App = () => {
   return (
     <NavigationContainer>
       {/* 在這裡建立了堆疊導航，用於處理不同頁面之間的導航。 */}
@@ -30,7 +30,7 @@ export default App = () => {
         <Stack.Screen
           name="HomePage"
           component={HomePage}
-
+          options={{ headerShown: false }} // 隐藏头部
         />
         <Stack.Screen
           name="Foods"
@@ -57,3 +57,6 @@ const styles = StyleSheet.create({
   headerTintColor: '#FFFFFF',
   backgroundColor: '#444444'
 });
+
+App.displayName = 'App';
+export default App;
