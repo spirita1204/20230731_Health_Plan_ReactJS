@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Text, View } from 'react-native'
-import PieChart from 'react-native-pie-chart'
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import PieChart from 'react-native-pie-chart';
 
 export default function DonutPieChart() {
     const widthAndHeight = 80;
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
         fontSize: 24,
         margin: 10,
     },
-})
+});

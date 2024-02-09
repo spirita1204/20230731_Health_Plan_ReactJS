@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Fragment } from 'react';
 import HeatMap from 'react-native-heatmap-chart';
 
@@ -25,5 +25,5 @@ export default function HeatMapCharts() {
                 }}
             />
         </Fragment>
-    )
-}
+    );
+};

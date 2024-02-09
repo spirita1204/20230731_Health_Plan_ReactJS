@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react';
 import { Modal, StyleSheet, Text, Pressable, View, TouchableWithoutFeedback, Button, SafeAreaView, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { useRoute } from '@react-navigation/native';
@@ -58,7 +58,7 @@ export default function CustomHeaderModal() {
             payload: {
                 visible: false
             }
-        })
+        });
     };
 
     /**
@@ -75,7 +75,7 @@ export default function CustomHeaderModal() {
             case 'DINNER':
                 return '晚餐';
             case 'SWEETS':
-                return '小食/其他'
+                return '小食/其他';
             default:
                 return '早餐';
         }
@@ -113,15 +113,15 @@ export default function CustomHeaderModal() {
                     </TouchableOpacity>
                 ))}
             </View >
-        )
-    }
+        );
+    };
 
     useEffect(() => {
         dispatch({
             type: 'SET_CHOOSE',
             payload: route?.params?.choose
         });
-    }, []);
+    }, [route?.params?.choose]);
 
     return (
         <View style={styles.centeredView}>
@@ -135,7 +135,7 @@ export default function CustomHeaderModal() {
                         payload: {
                             visible: !state.modal.visible
                         }
-                    })
+                    });
                 }}
             >
                 {/* 按Modal以外可關閉燈箱 */}
@@ -166,7 +166,7 @@ export default function CustomHeaderModal() {
                 <Text style={styles.smallText}>星期日, 01月28日</Text>
             </Pressable>
         </View >
-    )
+    );
 }
 
 const styles = StyleSheet.create({

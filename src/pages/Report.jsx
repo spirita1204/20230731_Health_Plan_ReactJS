@@ -1,5 +1,5 @@
-import React from 'react'
-import { Fragment } from 'react'
+import React from 'react';
+import { Fragment } from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
 
 export default function Report() {
@@ -9,7 +9,7 @@ export default function Report() {
 
       </ScrollView>
     </Fragment>
-  )
+  );
 }
 
 const styles = StyleSheet.create({

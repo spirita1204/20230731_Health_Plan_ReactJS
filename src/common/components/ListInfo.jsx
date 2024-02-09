@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { Fragment } from 'react'
+import React, { useState } from 'react';
+import { Fragment } from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
-import { CheckBox } from 'react-native-elements'
+import { CheckBox } from 'react-native-elements';
 
 export default function ListInfo() {
   const [checked, setChecked] = useState(false);
@@ -43,13 +43,13 @@ export default function ListInfo() {
             size={20}
             checkedIcon="check-square"
             iconType="font-awesome"
-            onPress={(e) => {handleOnPress()} }
+            onPress={(e) => {handleOnPress();} }
           />
 
         </View>
       </TouchableOpacity>
     </Fragment>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
   textDown: {
     color: '#00DD00'
   },
-})
+});

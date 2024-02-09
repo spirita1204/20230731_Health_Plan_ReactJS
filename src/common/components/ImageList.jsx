@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Fragment } from 'react'
+import React, { useState } from 'react';
+import { Fragment } from 'react';
 import { FlatList, StyleSheet, View, Text, Dimensions, Image } from 'react-native';
 
 export default function ImageList() {
@@ -41,7 +41,7 @@ export default function ImageList() {
         )}
       />
     </Fragment>
-  )
+  );
 }
 
 const styles = StyleSheet.create({

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -26,4 +26,4 @@ const CustomHeaderLeft = () => {
         </TouchableOpacity>
     );
 };
-export default CustomHeaderLeft
+export default CustomHeaderLeft;

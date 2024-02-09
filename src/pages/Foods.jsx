@@ -1,12 +1,12 @@
-import React, { useCallback, useState, Fragment } from 'react'
-import { useRoute } from '@react-navigation/native'
-import { View, StyleSheet, ScrollView, useWindowDimensions } from 'react-native'
-import { SearchBar } from 'react-native-elements'
-import { TabView, TabBar } from 'react-native-tab-view'
-import ListInfo from '../common/components/ListInfo'
+import React, { useCallback, useState, Fragment } from 'react';
+import { useRoute } from '@react-navigation/native';
+import { View, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
+import { SearchBar } from 'react-native-elements';
+import { TabView, TabBar } from 'react-native-tab-view';
+import ListInfo from '../common/components/ListInfo';
 import PropTypes from 'prop-types';
-import SearchHistory from '../common/components/SearchHistory'
-import ImageList from '../common/components/ImageList'
+import SearchHistory from '../common/components/SearchHistory';
+import ImageList from '../common/components/ImageList';
 
 /**
  * 食譜
@@ -16,7 +16,7 @@ const FirstRoute = () => (
     <View style={styles.imageListContainer}>
         <ImageList></ImageList>
     </View>
-)
+);
 
 /**
  * 食物
@@ -48,7 +48,7 @@ const SecondRoute = ({ searchText, updateSearch }) => (
         <SearchHistory></SearchHistory>
         <SearchHistory></SearchHistory>
     </ScrollView>
-)
+);
 
 SecondRoute.propTypes = {
     searchText: PropTypes.string,
@@ -73,7 +73,7 @@ const ThirdRoute = () => (
         <ListInfo></ListInfo>
         <ListInfo></ListInfo>
     </ScrollView>
-)
+);
 
 /**
  * 經常吃的
@@ -93,7 +93,7 @@ const ForthRoute = () => (
         <ListInfo></ListInfo>
         <ListInfo></ListInfo>
     </ScrollView>
-)
+);
 
 // 設定tabBar顏色
 const renderTabBar = (props) => (
@@ -105,7 +105,7 @@ const renderTabBar = (props) => (
             height: 3
         }}
     />
-)
+);
 
 export default function Foods() {
     const route = useRoute();
@@ -126,22 +126,22 @@ export default function Foods() {
     const renderScene = ({ route }) => {
         switch (route.key) {
             case 'first':
-                return <FirstRoute />
+                return <FirstRoute />;
             case 'second':
                 // 透過傳遞參數方式 避免每次組件渲染造成SearchBar重新回到初始狀態
-                return <SecondRoute searchText={searchText} updateSearch={updateSearch} />
+                return <SecondRoute searchText={searchText} updateSearch={updateSearch} />;
             case 'third':
-                return <ThirdRoute />
+                return <ThirdRoute />;
             case 'forth':
-                return <ForthRoute />
+                return <ForthRoute />;
             default:
-                return <FirstRoute />
+                return <FirstRoute />;
         }
-    }
+    };
 
     const updateSearch = useCallback((search) => {
-        setSearchText(search)
-    }, [])
+        setSearchText(search);
+    }, []);
 
     return (
         <Fragment>
@@ -154,7 +154,7 @@ export default function Foods() {
                 initialLayout={{ width: layout.width }}
             />
         </Fragment>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -166,4 +166,4 @@ const styles = StyleSheet.create({
         padding: 10, // Add padding around the content
         backgroundColor: '#444444'
     }
-})
+});

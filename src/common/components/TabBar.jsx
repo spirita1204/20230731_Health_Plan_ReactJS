@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -104,7 +104,7 @@ export default function TabBar() {
                         backgroundColor: '#444444', // 設置標題背景顏色
                     },
                     headerTitle: () => (
-                        <Text style={{ fontSize: 18, color: '#FFFFFF' }}>首頁</Text>
+                        <Text style={{ fontSize: 20, color: '#FFFFFF' }}>首頁</Text>
                     )
                 }}
             />
@@ -117,7 +117,7 @@ export default function TabBar() {
                         backgroundColor: '#444444', // 設置標題背景顏色
                     },
                     headerTitle: () => (
-                        <Text style={{ fontSize: 18, color: '#FFFFFF' }}>我</Text>
+                        <Text style={{ fontSize: 20, color: '#FFFFFF' }}>我</Text>
                     )
                 }}
             />
@@ -144,7 +144,7 @@ export default function TabBar() {
                         backgroundColor: '#444444', // 設置標題背景顏色
                     },
                     headerTitle: () => (
-                        <Text style={{ fontSize: 18, color: '#FFFFFF' }}>報告</Text>
+                        <Text style={{ fontSize: 20, color: '#FFFFFF' }}>報告</Text>
                     )
                 }}
             />
@@ -157,12 +157,12 @@ export default function TabBar() {
                         backgroundColor: '#444444', // 設置標題背景顏色
                     },
                     headerTitle: () => (
-                        <Text style={{ fontSize: 18, color: '#FFFFFF' }}>進階版</Text>
+                        <Text style={{ fontSize: 20, color: '#FFFFFF' }}>進階版</Text>
                     )
                 }}
             />
         </Tab.Navigator>
-    )
+    );
 }
 
 const styles = StyleSheet.create({

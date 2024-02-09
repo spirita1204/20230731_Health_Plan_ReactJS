@@ -52,6 +52,12 @@ const Post = ({ username, text, imageSource }) => {
   );
 };
 
+Post.propTypes = {
+  username: PropTypes.string.isRequired, // 聲明username屬性是必需的並且是字符串類型
+  text: PropTypes.string.isRequired, // 聲明text屬性是必需的並且是字符串類型
+  imageSource: PropTypes.object.isRequired, // 聲明imageSource屬性是必需的並且是對象類型
+};
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#666666',

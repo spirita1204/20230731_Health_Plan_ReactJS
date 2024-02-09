@@ -1,6 +1,6 @@
-import React from 'react'
-import { Fragment } from 'react'
-import Post from '../common/components/Post'
+import React from 'react';
+import { Fragment } from 'react';
+import Post from '../common/components/Post';
 import { View, ScrollView, StyleSheet } from 'react-native';
 
 /**
@@ -28,7 +28,7 @@ export default function Home() {
                 ></Post>
             </ScrollView>
         </Fragment>
-    )
+    );
 }
 
 const styles = StyleSheet.create({

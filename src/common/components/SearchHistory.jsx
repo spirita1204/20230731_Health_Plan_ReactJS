@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react'
-import { TouchableOpacity, View, StyleSheet, Text } from 'react-native'
+import React, { Fragment } from 'react';
+import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 export default function SearchHistory() {
@@ -26,7 +26,7 @@ export default function SearchHistory() {
                 </View>
             </TouchableOpacity>
         </Fragment>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
     icon: {
         transform: [{ rotate: '225deg' }]
     }
-})
+});
