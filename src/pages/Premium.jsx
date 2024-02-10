@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Fragment } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import ImageBox from '../common/components/ImageBox';
 import PayRadioButton from '../common/components/Button/PayRadioButton';
+import { Button } from 'react-native-elements';
+import { Image } from 'react-native-elements';
 
 export default function Premium() {
+  /**
+   * 1. 12個月
+   * 2. 3個月
+   * 3. 1個月
+   */
+  const [planChoose, setPlanChoose] = useState('2');
+
   return (
     <Fragment>
       <ScrollView style={styles.container}>
+        {/** 圖片 */}
+        <Image
+          source={require('../../assets/payment.png')}
+          style={styles.itemImage}
+        />
         <View style={styles.container3}>
+          {/** 圖片箱 */}
           <ImageBox
             title={'營養師安排的飲食計畫'}
             content={'透過進食多樣化、營養居衡的飲食計畫，簡化飲食決策'}
@@ -49,10 +64,44 @@ export default function Premium() {
         <View style={styles.container3}>
           <Text style={{ ...styles.text3, textAlign: 'center' }}>升級至進階版，達成健康目標更輕鬆</Text>
         </View>
+        {/** 付費選項 */}
         <View style={styles.container3}>
-          <PayRadioButton />
-          <PayRadioButton />
-          <PayRadioButton />
+          <PayRadioButton
+            monthText='12 個月'
+            priceText='$1,440.00'
+            savingsText='省下54%'
+            recommended={false}
+            checked={planChoose == '1'}
+            onPress={()=>{setPlanChoose('1');}}
+          />
+          <PayRadioButton
+            monthText='3 個月'
+            priceText='$580.00'
+            savingsText='省下26%'
+            recommended={true}
+            checked={planChoose == '2'}
+            onPress={()=>{setPlanChoose('2');}}
+          />
+          <PayRadioButton
+            monthText='1 個月'
+            priceText='$240.00'
+            savingsText=''
+            recommended={false}
+            checked={planChoose == '3'}
+            onPress={()=>{setPlanChoose('3');}}
+          />
+        </View>
+        <View style={styles.container4}>
+          <Text style={{ ...styles.text4, textAlign: 'center' }}>向您推薦我們的3個月方案，因為它提供的價格和投入時間都很合理，協助您達成目標。三個月來的持續追蹤與進步會為您提供邁向成功長遠下來所需的動力。</Text>
+          <View style={styles.container5}>
+            <Button
+              title={'購買12個月方案'}
+              buttonStyle={styles.button}
+              titleStyle={styles.buttonText}
+            />
+          </View>
+          <Text style={{ ...styles.text4, textAlign: 'center' }}>使用條款 和 隱私權條款</Text>
+          <Text style={{ ...styles.text4, textAlign: 'center' }}>*我們會使用您Google Play帳號來收取進階版服務的費用，您所選擇的服務方案需要在過期的24小時前取消，否則此方案會自動續約，您能透過您的Google Play帳號來管理您的服務。</Text>
         </View>
       </ScrollView>
     </Fragment>
@@ -71,6 +120,13 @@ const styles = StyleSheet.create({
   container3: {
     padding: 10
   },
+  container4: {
+    paddingHorizontal: 25,
+    paddingVertical: 5
+  },
+  container5: {
+    paddingVertical: 20
+  },
   text1: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -87,5 +143,24 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginTop: 4,
     fontWeight: 'bold',
-  }
+  },
+  text4: {
+    fontSize: 12,
+    color: '#AAAAAA',
+  },
+  button: {
+    backgroundColor: '#FFBB00',
+    borderRadius: 10,
+    height: 50
+  },
+  buttonText: {
+    color: '#000000', // 黑色
+    fontWeight: 'bold', // 加粗
+    fontSize: 16, // 字体大小
+  },
+  itemImage: {
+    width: '100%',
+    height: 250, // Adjust the height based on your preference
+    marginBottom: 0,
+  },
 });
