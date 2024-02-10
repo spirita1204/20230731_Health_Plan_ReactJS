@@ -156,9 +156,8 @@ export default function TabBar() {
                     headerStyle: {
                         backgroundColor: '#444444', // 設置標題背景顏色
                     },
-                    headerTitle: () => (
-                        <Text style={{ fontSize: 20, color: '#FFFFFF' }}>進階版</Text>
-                    )
+                    headerStatusBarHeight: 0, // 讓header空間為0 = 消失
+                    headerTitle: () => null, // 不顯示標題
                 }}
             />
         </Tab.Navigator>

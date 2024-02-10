@@ -72,7 +72,7 @@ export default function Premium() {
             savingsText='省下54%'
             recommended={false}
             checked={planChoose == '1'}
-            onPress={()=>{setPlanChoose('1');}}
+            onPress={() => { setPlanChoose('1'); }}
           />
           <PayRadioButton
             monthText='3 個月'
@@ -80,7 +80,7 @@ export default function Premium() {
             savingsText='省下26%'
             recommended={true}
             checked={planChoose == '2'}
-            onPress={()=>{setPlanChoose('2');}}
+            onPress={() => { setPlanChoose('2'); }}
           />
           <PayRadioButton
             monthText='1 個月'
@@ -88,14 +88,22 @@ export default function Premium() {
             savingsText=''
             recommended={false}
             checked={planChoose == '3'}
-            onPress={()=>{setPlanChoose('3');}}
+            onPress={() => { setPlanChoose('3'); }}
           />
         </View>
         <View style={styles.container4}>
           <Text style={{ ...styles.text4, textAlign: 'center' }}>向您推薦我們的3個月方案，因為它提供的價格和投入時間都很合理，協助您達成目標。三個月來的持續追蹤與進步會為您提供邁向成功長遠下來所需的動力。</Text>
           <View style={styles.container5}>
             <Button
-              title={'購買12個月方案'}
+              title={
+                '購買 ' +
+                ((planChoose == '1')
+                  ? '12'
+                  : (planChoose == '2')
+                    ? '3'
+                    : '1')
+                + ' 個月方案'
+              }
               buttonStyle={styles.button}
               titleStyle={styles.buttonText}
             />
