@@ -6,11 +6,11 @@ import { View, StyleSheet, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 
-export default function ImageBox({ title, content, uri }) {
+export default function ImageBox({ title, content, uri, onPress }) {
     return (
         <Fragment>
             <TouchableOpacity
-                onPress={() => { }}
+                onPress={onPress}
             >
                 <View style={styles.itemContainer}>
                     <Image source={{ uri: uri }} style={styles.itemImage} />
@@ -30,7 +30,8 @@ export default function ImageBox({ title, content, uri }) {
 ImageBox.propTypes = {
     title: PropTypes.string,
     content: PropTypes.string,
-    uri: PropTypes.string.isRequired
+    uri: PropTypes.string.isRequired,
+    onPress: PropTypes.func
 };
 
 const styles = StyleSheet.create({
