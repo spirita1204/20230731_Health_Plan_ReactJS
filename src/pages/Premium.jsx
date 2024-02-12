@@ -16,6 +16,9 @@ export default function Premium() {
 
   const scrollViewRef = useRef(null);
 
+  /**
+   * 將 ScrollView 滾動到底部。
+   */
   const scrollToBottom = () => {
     if (scrollViewRef.current) {
       scrollViewRef.current.scrollToEnd({ animated: true });

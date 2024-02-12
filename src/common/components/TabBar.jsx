@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import React, { Fragment } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Image, useWindowDimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../../pages/Home';
@@ -8,6 +8,8 @@ import Premium from '../../pages/Premium';
 import Report from '../../pages/Report';
 import MyPlace from '../../pages/MyPlace';
 import CustomHeaderCalendar from './Header/CustomHeaderCalendar';
+import Avatar from './Avatar';
+import IconBox from './IconBox';
 
 export default function TabBar() {
     const Tab = createBottomTabNavigator();
@@ -100,12 +102,23 @@ export default function TabBar() {
                 component={Home}
                 options={{
                     headerShown: true, // 顯示標題欄
+                    headerLeft: () => (
+                        <Fragment>
+                            <View style={styles.horizontal}>
+                                {/* 個人資訊 */}
+                                <Avatar />
+                                {/* 提醒按鈕 */}
+                                <IconBox
+                                    logo={'notifications-none'}
+                                    onPress={() => console.log('abc')}
+                                />
+                            </View>
+                        </Fragment>
+                    ),
                     headerStyle: {
                         backgroundColor: '#444444', // 設置標題背景顏色
                     },
-                    headerTitle: () => (
-                        <Text style={{ fontSize: 20, color: '#FFFFFF' }}>首頁</Text>
-                    )
+                    headerTitle: () => null, // 不顯示標題
                 }}
             />
             <Tab.Screen
@@ -113,12 +126,30 @@ export default function TabBar() {
                 component={MyPlace}
                 options={{
                     headerShown: true, // 顯示標題欄
+                    headerLeft: () => (
+                        <View style={styles.horizontal}>
+                            {/* 個人資訊 */}
+                            <Avatar />
+                            {/* 提醒按鈕 */}
+                            <IconBox
+                                logo={'notifications-none'}
+                                onPress={() => console.log('abc')}
+                            />
+                        </View>
+                    ),
+                    headerRight: () => (
+                        <Fragment>
+                            {/* 設定 */}
+                            <IconBox
+                                logo={'settings'}
+                                onPress={() => console.log('abc')}
+                            />
+                        </Fragment>
+                    ),
                     headerStyle: {
                         backgroundColor: '#444444', // 設置標題背景顏色
                     },
-                    headerTitle: () => (
-                        <Text style={{ fontSize: 20, color: '#FFFFFF' }}>我</Text>
-                    )
+                    headerTitle: () => null, // 不顯示標題
                 }}
             />
             <Tab.Screen
@@ -140,12 +171,30 @@ export default function TabBar() {
                 component={Report}
                 options={{
                     headerShown: true, // 顯示標題欄
+                    headerLeft: () => (
+                        <View style={styles.horizontal}>
+                            {/* 個人資訊 */}
+                            <Avatar />
+                            {/* 提醒按鈕 */}
+                            <IconBox
+                                logo={'notifications-none'}
+                                onPress={() => console.log('abc')}
+                            />
+                        </View>
+                    ),
+                    headerRight: () => (
+                        <Fragment>
+                            {/* 目標 */}
+                            <IconBox
+                                logo={'track-changes'}
+                                onPress={() => console.log('abc')}
+                            />
+                        </Fragment>
+                    ),
                     headerStyle: {
                         backgroundColor: '#444444', // 設置標題背景顏色
                     },
-                    headerTitle: () => (
-                        <Text style={{ fontSize: 20, color: '#FFFFFF' }}>報告</Text>
-                    )
+                    headerTitle: () => null, // 不顯示標題
                 }}
             />
             <Tab.Screen
@@ -167,5 +216,8 @@ export default function TabBar() {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#666666'
+    },
+    horizontal: {
+        flexDirection: 'row'
     }
 });
