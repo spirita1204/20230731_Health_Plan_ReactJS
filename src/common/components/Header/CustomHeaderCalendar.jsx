@@ -153,8 +153,8 @@ export default function CustomHeaderCalendar() {
                 </View>
             </TouchableOpacity>
             {/* {showCalendar && ( */}
-            {/** 透過展開動畫方式呈現 */}
-            <Animated.View style={[styles.calendarContainer,
+            {/** 透過展開動畫方式呈現 showCalendar避免覆蓋到Note使其無法點擊*/}
+            {showCalendar && <Animated.View style={[styles.calendarContainer,
             {
                 // Bind calendarHeight to animated value 
                 opacity: animation
@@ -213,7 +213,7 @@ export default function CustomHeaderCalendar() {
                     }}
                     style={styles.calendar} // 设置圆角半径}
                 />
-            </Animated.View>
+            </Animated.View>}
             {/* )} */}
         </Fragment>
     );

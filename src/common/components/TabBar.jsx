@@ -1,17 +1,69 @@
 import React, { Fragment } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image, useWindowDimensions } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import PropTypes from 'prop-types';
+// Page
 import Home from '../../pages/Home';
+import MyPlace from '../../pages/MyPlace';
 import Note from '../../pages/Note';
 import Premium from '../../pages/Premium';
 import Report from '../../pages/Report';
-import MyPlace from '../../pages/MyPlace';
+// import { default as Note } from '../../entries/note'; // 使用别名 Note
+// Header
 import CustomHeaderCalendar from './Header/CustomHeaderCalendar';
 import Avatar from './Avatar';
 import IconBox from './IconBox';
+// Provider
+import { HomeProvider } from '../contexts/HomeContext';
+import { MyPlaceProvider } from '../contexts/MyPlaceContext';
+import { NoteProvider } from '../contexts/NoteContext';
+import { ReportProvider } from '../contexts/ReportContext';
+import { PremiumProvider } from '../contexts/PremiumContext';
+
+// 包Wrapper
+function HomeWrapper() {
+    return (
+        <HomeProvider>
+            <Home />
+        </HomeProvider>
+    );
+}
+function MyPlaceWrapper() {
+    return (
+        <MyPlaceProvider>
+            <MyPlace />
+        </MyPlaceProvider>
+    );
+}
+function NoteWrapper({ navigation }) {
+    return (
+        <NoteProvider>
+            <Note navigation={navigation} />
+        </NoteProvider>
+    );
+}
+NoteWrapper.propTypes = {
+    navigation: PropTypes.shape({
+        navigate: PropTypes.func.isRequired,
+    }).isRequired,
+};
+function ReportWrapper() {
+    return (
+        <ReportProvider>
+            <Report />
+        </ReportProvider>
+    );
+}
+function PremiumWrapper() {
+    return (
+        <PremiumProvider>
+            <Premium />
+        </PremiumProvider>
+    );
+}
 
 export default function TabBar() {
+
     const Tab = createBottomTabNavigator();
 
     return (
@@ -99,7 +151,7 @@ export default function TabBar() {
         >
             <Tab.Screen
                 name="首頁"
-                component={Home}
+                component={HomeWrapper}
                 options={{
                     headerShown: true, // 顯示標題欄
                     headerLeft: () => (
@@ -123,7 +175,7 @@ export default function TabBar() {
             />
             <Tab.Screen
                 name="我"
-                component={MyPlace}
+                component={MyPlaceWrapper}
                 options={{
                     headerShown: true, // 顯示標題欄
                     headerLeft: () => (
@@ -154,7 +206,7 @@ export default function TabBar() {
             />
             <Tab.Screen
                 name="日記"
-                component={Note}
+                component={NoteWrapper}
                 options={{
                     headerShown: true, // 顯示標題欄
                     headerLeft: () => (
@@ -168,7 +220,7 @@ export default function TabBar() {
             />
             <Tab.Screen
                 name="報告"
-                component={Report}
+                component={ReportWrapper}
                 options={{
                     headerShown: true, // 顯示標題欄
                     headerLeft: () => (
@@ -199,7 +251,7 @@ export default function TabBar() {
             />
             <Tab.Screen
                 name="進階版"
-                component={Premium}
+                component={PremiumWrapper}
                 options={{
                     headerShown: true, // 顯示標題欄
                     headerStyle: {

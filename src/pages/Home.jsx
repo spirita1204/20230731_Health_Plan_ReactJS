@@ -1,13 +1,20 @@
 import React from 'react';
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 import Post from '../common/components/Post';
 import { View, ScrollView, StyleSheet } from 'react-native';
+import { HomeContext } from '../common/contexts/HomeContext';
 
 /**
  *  首頁
  * @returns 
  */
 export default function Home() {
+
+    // 交易畫面共用資料以及函數
+    const {
+        translate
+    } = useContext(HomeContext);
+
     return (
         <Fragment>
             <ScrollView style={styles.container}>

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { Fragment } from 'react';
 import LongPressButton from '../common/components/Button/LongPressButton';
 import DonutPieChart from '../common/components/Charts/DonutPieChart';
@@ -6,6 +6,7 @@ import HeatMapCharts from '../common/components/Charts/HeatMapCharts';
 import { View, Text, StyleSheet } from 'react-native';
 import { Image, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
+import { NoteContext } from '../common/contexts/NoteContext';
 
 /**
  * 日記
@@ -17,6 +18,11 @@ import PropTypes from 'prop-types';
  * @returns 
  */
 export default function Note({ navigation }) {
+    // 交易畫面共用資料以及函數
+    const {
+        translate
+    } = useContext(NoteContext);
+
     /**
        * 導向食物導覽頁
        */
@@ -31,25 +37,26 @@ export default function Note({ navigation }) {
                     {/* 早午晚餐按鈕 */}
                     <LongPressButton
                         leftLogo={require('../../assets/english-breakfast.png')}
-                        leftText={' 早餐'}
+                        leftText={translate('NOTE.LONG_BUTTON.BREAKFAST')}
+                        //leftText={translate('NOTE.LONG_BUTTON.BREAKFAST')}
                         rightLogo={require('../../assets/plus.png')}
                         onPress={() => { handlClick('BREAKFAST'); }}
                     ></LongPressButton>
                     <LongPressButton
                         leftLogo={require('../../assets/lunch-time.png')}
-                        leftText={' 午餐'}
+                        leftText={translate('NOTE.LONG_BUTTON.LUNCH')}
                         rightLogo={require('../../assets/plus.png')}
                         onPress={() => { handlClick('LUNCH'); }}
                     ></LongPressButton>
                     <LongPressButton
                         leftLogo={require('../../assets/christmas-dinner.png')}
-                        leftText={' 晚餐'}
+                        leftText={translate('NOTE.LONG_BUTTON.DINNER')}
                         rightLogo={require('../../assets/plus.png')}
                         onPress={() => { handlClick('DINNER'); }}
                     ></LongPressButton>
                     <LongPressButton
                         leftLogo={require('../../assets/sweets.png')}
-                        leftText={' 點心'}
+                        leftText={translate('NOTE.LONG_BUTTON.SWEETS')}
                         rightLogo={require('../../assets/plus.png')}
                         onPress={() => { handlClick('SWEETS'); }}
                     ></LongPressButton>
@@ -57,18 +64,22 @@ export default function Note({ navigation }) {
                     {/* 總結數據 */}
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', }}>
                         <View style={{ flex: 30, marginRight: 10 }}>
-                            <Text style={styles.text}>{'總結數據'}</Text>
+                            {/* 總結數據 */}
+                            <Text style={styles.text}>{translate('NOTE.TOTAL_DATA.TOTAL')}</Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={styles.text}>{'剩餘的卡路里'}</Text>
+                                {/** 剩餘的卡路里 */}
+                                <Text style={styles.text}>{translate('NOTE.TOTAL_DATA.R_KCAL')}</Text>
                                 <Text style={styles.text}>{'1500'}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={styles.text}>{'攝取的卡路里'}</Text>
+                                {/** 攝取的卡路里 */}
+                                <Text style={styles.text}>{translate('NOTE.TOTAL_DATA.EAT_KCAL')}</Text>
                                 <Text style={styles.text}>{'0'}</Text>
                             </View>
                             <View style={styles.horizontalSeparator} />
+                            {/** 0 % 的RDA */}
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={styles.text}>{'0 % 的RDA'}</Text>
+                                <Text style={styles.text}>{translate('NOTE.TOTAL_DATA.RDA')}</Text>
                                 <Text style={styles.text}>{'1500'}</Text>
                             </View>
                         </View>
@@ -79,28 +90,35 @@ export default function Note({ navigation }) {
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <View style={{ flex: 2.5 }}>
                             <View style={styles.leftContent}>
-                                <Image source={require('../../assets/594846.png')} style={{ width: 15, height: 15 }} />
-                                <Text style={styles.text}>{' 碳水化合物: 52%'}</Text>
+                                <Image source={require('../../assets/594846.png')} style={{ width: 15, height: 15, marginRight: 5 }} />
+                                <Text style={styles.text}>{translate('NOTE.GRAPH.CARBOHYDARE') + '52%'}</Text>
                             </View>
                             <View style={styles.leftContent}>
-                                <Image source={require('../../assets/5111178.png')} style={{ width: 15, height: 15 }} />
-                                <Text style={styles.text}>{' 脂肪: 24%'}</Text>
+                                <Image source={require('../../assets/5111178.png')} style={{ width: 15, height: 15, marginRight: 5 }} />
+                                <Text style={styles.text}>{translate('NOTE.GRAPH.FAT') + '24%'}</Text>
                             </View>
                             <View style={styles.leftContent}>
-                                <Image source={require('../../assets/5853933.png')} style={{ width: 15, height: 15 }} />
-                                <Text style={styles.text}>{' 蛋白質: 24%'}</Text>
+                                <Image source={require('../../assets/5853933.png')} style={{ width: 15, height: 15, marginRight: 5 }} />
+                                <Text style={styles.text}>{translate('NOTE.GRAPH.PROTEIN') + '24%'}</Text>
                             </View>
                         </View>
                         <DonutPieChart />
                     </View>
                     <View style={styles.horizontalSeparator} />
-                    <Text style={styles.text}>{'脂肪: 10.00克'}</Text>
-                    <Text style={styles.text}>{'膽固醇: 0毫克'}:</Text>
-                    <Text style={styles.text}>{'鈉: 0毫克'}</Text>
-                    <Text style={styles.text}>{'碳水化合物: 0.00克'}</Text>
-                    <Text style={styles.text}>{'膳食纖維: 0.0克'}</Text>
-                    <Text style={styles.text}>{'糖: 0.00克'}</Text>
-                    <Text style={styles.text}>{'蛋白質: 20.10克'}</Text>
+                    {/** 脂肪 */}
+                    <Text style={styles.text}>{translate('NOTE.GRAPH.FAT') + '10.00克'}</Text>
+                    {/** 膽固醇 */}
+                    <Text style={styles.text}>{translate('NOTE.DATA.CHOLESTEROL') + '0毫克'}:</Text>
+                    {/** 鈉 */}
+                    <Text style={styles.text}>{translate('NOTE.DATA.NA') + '0毫克'}</Text>
+                    {/** 碳水化合物 */}
+                    <Text style={styles.text}>{translate('NOTE.GRAPH.CARBOHYDARE') + '0.00克'}</Text>
+                    {/** 膳食纖維 */}
+                    <Text style={styles.text}>{translate('NOTE.DATA.DIETARY_FIBER') + '0.0克'}</Text>
+                    {/** 糖 */}
+                    <Text style={styles.text}>{translate('NOTE.DATA.SUGAR') + '0.00克'}</Text>
+                    {/** 蛋白質 */}
+                    <Text style={styles.text}>{translate('NOTE.GRAPH.PROTEIN') + '20.10克'}</Text>
                     <View style={styles.horizontalSeparator} />
                 </View>
             </ScrollView>
@@ -111,7 +129,7 @@ export default function Note({ navigation }) {
 Note.propTypes = {
     navigation: PropTypes.shape({
         navigate: PropTypes.func.isRequired,
-    }).isRequired,
+    })
 };
 
 const styles = StyleSheet.create({

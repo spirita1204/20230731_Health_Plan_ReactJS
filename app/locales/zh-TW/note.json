@@ -1,0 +1,27 @@
+{
+    "NOTE": {
+        "LONG_BUTTON": {
+            "BREAKFAST": "早餐",
+            "LUNCH": "午餐",
+            "DINNER": "晚餐",
+            "SWEETS": "點心"
+        },
+        "TOTAL_DATA": {
+            "TOTAL": "總結數據",
+            "R_KCAL": "剩餘的卡路里",
+            "EAT_KCAL": "攝取的卡路里",
+            "RDA": "0 % 的RDA"
+        },
+        "GRAPH": {
+            "CARBOHYDARE": "碳水化合物: ",
+            "FAT": "脂肪: ",
+            "PROTEIN": "蛋白質: "
+        },
+        "DATA": {
+            "CHOLESTEROL": "膽固醇: ",
+            "NA": "鈉: ",
+            "DIETARY_FIBER": "膳食纖維: ",
+            "SUGAR": "糖: "
+        }
+    }
+}

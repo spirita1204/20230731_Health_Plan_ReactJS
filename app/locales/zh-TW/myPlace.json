@@ -1,0 +1,12 @@
+{
+    "MYPLACE": {
+        "ACCT_TYPE": "帳號類型:",
+        "TITLE": {
+            "WEIGHT": "我的體重",
+            "ALERT": "提醒",
+            "ALBUM": "相簿",
+            "PRIVACY": "通訊和隱私權",
+            "CONTACT_US": "聯絡我們"
+        }
+    }
+}
