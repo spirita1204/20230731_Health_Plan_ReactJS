@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 // Page
 import Home from '../../pages/Home';
 import MyPlace from '../../pages/MyPlace';
@@ -28,6 +29,7 @@ function HomeWrapper() {
         </HomeProvider>
     );
 }
+
 function MyPlaceWrapper() {
     return (
         <MyPlaceProvider>
@@ -35,6 +37,7 @@ function MyPlaceWrapper() {
         </MyPlaceProvider>
     );
 }
+
 function NoteWrapper({ navigation }) {
     return (
         <NoteProvider>
@@ -42,11 +45,13 @@ function NoteWrapper({ navigation }) {
         </NoteProvider>
     );
 }
+
 NoteWrapper.propTypes = {
     navigation: PropTypes.shape({
         navigate: PropTypes.func.isRequired,
     }).isRequired,
 };
+
 function ReportWrapper() {
     return (
         <ReportProvider>
@@ -54,6 +59,7 @@ function ReportWrapper() {
         </ReportProvider>
     );
 }
+
 function PremiumWrapper() {
     return (
         <PremiumProvider>
@@ -66,6 +72,9 @@ export default function TabBar() {
 
     const Tab = createBottomTabNavigator();
 
+    // 多語系
+    const { t } = useTranslation('common');
+
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -77,31 +86,31 @@ export default function TabBar() {
                     let iconPath;
                     let iconSize;
                     let iconTop;
-                    if (route.name === '首頁') {
+                    if (route.name === t('ROUTE_NAME.HOME')) {
                         iconPath = focused
                             ? require('../../../assets/home.png') :
                             require('../../../assets/home.png');
                         iconSize = focused ? 30 : 24;
                         iconTop = focused ? 0 : 7.5;
-                    } else if (route.name === '我') {
+                    } else if (route.name === t('ROUTE_NAME.MYPLACE')) {
                         iconPath = focused
                             ? require('../../../assets/user.png') :
                             require('../../../assets/user.png');
                         iconSize = focused ? 30 : 24;
                         iconTop = focused ? 0 : 7.5;
-                    } else if (route.name == '日記') {
+                    } else if (route.name == t('ROUTE_NAME.NOTE')) {
                         iconPath = focused
                             ? require('../../../assets/calendar.png') :
                             require('../../../assets/calendar.png');
                         iconSize = focused ? 30 : 24;
                         iconTop = focused ? 0 : 7.5;
-                    } else if (route.name == '報告') {
+                    } else if (route.name == t('ROUTE_NAME.REPORT')) {
                         iconPath = focused
                             ? require('../../../assets/chart-histogram.png') :
                             require('../../../assets/chart-histogram.png');
                         iconSize = focused ? 30 : 24;
                         iconTop = focused ? 0 : 7.5;
-                    } else if (route.name == '進階版') {
+                    } else if (route.name == t('ROUTE_NAME.PREMIUM')) {
                         iconPath = focused
                             ? require('../../../assets/dollar.png') :
                             require('../../../assets/dollar.png');
@@ -122,15 +131,15 @@ export default function TabBar() {
                 },
                 tabBarLabel: ({ focused, color }) => {
                     let showFont;
-                    if (route.name === '首頁') {
+                    if (route.name === t('ROUTE_NAME.HOME')) {
                         showFont = focused ? 'none' : 'flex';
-                    } else if (route.name === '我') {
+                    } else if (route.name === t('ROUTE_NAME.MYPLACE')) {
                         showFont = focused ? 'none' : 'flex';
-                    } else if (route.name == '日記') {
+                    } else if (route.name == t('ROUTE_NAME.NOTE')) {
                         showFont = focused ? 'none' : 'flex';
-                    } else if (route.name == '報告') {
+                    } else if (route.name == t('ROUTE_NAME.REPORT')) {
                         showFont = focused ? 'none' : 'flex';
-                    } else if (route.name == '進階版') {
+                    } else if (route.name == t('ROUTE_NAME.PREMIUM')) {
                         showFont = focused ? 'none' : 'flex';
                     }
                     return (
@@ -150,7 +159,8 @@ export default function TabBar() {
             })}
         >
             <Tab.Screen
-                name="首頁"
+                // 首頁
+                name={t('ROUTE_NAME.HOME')}
                 component={HomeWrapper}
                 options={{
                     headerShown: true, // 顯示標題欄
@@ -174,7 +184,8 @@ export default function TabBar() {
                 }}
             />
             <Tab.Screen
-                name="我"
+                // 我
+                name={t('ROUTE_NAME.MYPLACE')}
                 component={MyPlaceWrapper}
                 options={{
                     headerShown: true, // 顯示標題欄
@@ -194,7 +205,6 @@ export default function TabBar() {
                             {/* 設定 */}
                             <IconBox
                                 logo={'settings'}
-                                onPress={() => console.log('abc')}
                             />
                         </Fragment>
                     ),
@@ -205,7 +215,8 @@ export default function TabBar() {
                 }}
             />
             <Tab.Screen
-                name="日記"
+                // 日記
+                name={t('ROUTE_NAME.NOTE')}
                 component={NoteWrapper}
                 options={{
                     headerShown: true, // 顯示標題欄
@@ -219,7 +230,8 @@ export default function TabBar() {
                 }}
             />
             <Tab.Screen
-                name="報告"
+                // 報告
+                name={t('ROUTE_NAME.REPORT')}
                 component={ReportWrapper}
                 options={{
                     headerShown: true, // 顯示標題欄
@@ -250,7 +262,8 @@ export default function TabBar() {
                 }}
             />
             <Tab.Screen
-                name="進階版"
+                // 進階版
+                name={t('ROUTE_NAME.PREMIUM')}
                 component={PremiumWrapper}
                 options={{
                     headerShown: true, // 顯示標題欄

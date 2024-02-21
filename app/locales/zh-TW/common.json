@@ -1,3 +1,9 @@
 {
-    
+    "ROUTE_NAME": {
+        "HOME": "首頁",
+        "MYPLACE": "我",
+        "NOTE": "日記",
+        "REPORT": "報告",
+        "PREMIUM": "進階版"
+    }
 }

@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 // providers
 // import { Provider as ReduxProvider } from 'react-redux';
 import { I18nextProvider } from 'react-i18next';
-import { NoteProvider } from '../common/contexts/NoteContext';
+import { FoodProvider } from '../common/contexts/FoodContext';
 // router
 import Router from '../common/routes';
 import Note from '../pages/Note';
@@ -18,6 +18,15 @@ import CustomHeaderModal from '../common/components/Header/CustomHeaderModal';
 import CustomHeaderCamera from '../common/components/Header/CustomHeaderCamera';
 import Foods from '../pages/Foods';
 import HomePage from '../pages/HomePage';
+import SettingPage from '../pages/settings/SettingPage';
+
+function FoodsWrapper() {
+    return (
+        <FoodProvider>
+            <Foods />
+        </FoodProvider>
+    );
+}
 
 function WrapPage() {
 
@@ -45,7 +54,7 @@ function WrapPage() {
                 />
                 <Stack.Screen
                     name="Foods"
-                    component={Foods}
+                    component={FoodsWrapper}
                     options={{
                         // 客製化打叉叉按鈕
                         headerLeft: () => <CustomHeaderLeft />,
@@ -53,6 +62,13 @@ function WrapPage() {
                         headerTitle: () => <CustomHeaderModal />,
                         // 照相機
                         headerRight: () => <CustomHeaderCamera />,
+                    }}
+                />
+                <Stack.Screen
+                    name="SettingPage"
+                    component={SettingPage}
+                    options={{
+                        headerTitle: '設定', // 不顯示標題
                     }}
                 />
             </Stack.Navigator>

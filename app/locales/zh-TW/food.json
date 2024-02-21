@@ -1,3 +1,13 @@
 {
-    
+    "FOOD": {
+        "TITLE": {
+            "RECIPE": "食譜",
+            "FOOD": "食物",
+            "RECENT_ATE": "最近吃過",
+            "OFTEN_EAT": "經常吃的"
+        },
+        "PLACE_HOLDER": {
+            "SEARCH_FOOD": "搜尋食物"
+        }
+    }
 }

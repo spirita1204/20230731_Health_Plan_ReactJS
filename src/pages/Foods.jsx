@@ -1,4 +1,4 @@
-import React, { useCallback, useState, Fragment } from 'react';
+import React, { useCallback, useState, Fragment, useContext } from 'react';
 import { useRoute } from '@react-navigation/native';
 import { View, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
 import { SearchBar } from 'react-native-elements';
@@ -7,6 +7,7 @@ import ListInfo from '../common/components/ListInfo';
 import PropTypes from 'prop-types';
 import SearchHistory from '../common/components/SearchHistory';
 import ImageList from '../common/components/ImageList';
+import { FoodContext } from '../common/contexts/FoodContext';
 
 /**
  * 食譜
@@ -22,11 +23,12 @@ const FirstRoute = () => (
  * 食物
  * @returns
  */
-const SecondRoute = ({ searchText, updateSearch }) => (
+const SecondRoute = ({ searchText, updateSearch, translate }) => (
     <ScrollView style={styles.container}>
         {/** 搜尋框 */}
         <SearchBar
-            placeholder="搜尋食物"
+            // 搜尋食物
+            placeholder={translate('FOOD.PLACE_HOLDER.SEARCH_FOOD')}
             onChangeText={updateSearch}
             value={searchText}
             // 字體顏色
@@ -52,7 +54,8 @@ const SecondRoute = ({ searchText, updateSearch }) => (
 
 SecondRoute.propTypes = {
     searchText: PropTypes.string,
-    updateSearch: PropTypes.func
+    updateSearch: PropTypes.func,
+    translate: PropTypes.func,
 };
 
 /**
@@ -116,11 +119,16 @@ export default function Foods() {
 
     const layout = useWindowDimensions();
 
+    // 交易畫面共用資料以及函數
+    const {
+        translate
+    } = useContext(FoodContext);
+
     const routes = [
-        { key: 'first', title: '食譜' },
-        { key: 'second', title: '食物' },
-        { key: 'third', title: '最近吃過' },
-        { key: 'forth', title: '經常吃的' }
+        { key: 'first', title: translate('FOOD.TITLE.RECIPE') }, // 食譜
+        { key: 'second', title: translate('FOOD.TITLE.FOOD') },// 食物
+        { key: 'third', title: translate('FOOD.TITLE.RECENT_ATE') },// 最近吃過
+        { key: 'forth', title: translate('FOOD.TITLE.OFTEN_EAT') }// 經常吃的
     ];
 
     const renderScene = ({ route }) => {
@@ -129,7 +137,11 @@ export default function Foods() {
                 return <FirstRoute />;
             case 'second':
                 // 透過傳遞參數方式 避免每次組件渲染造成SearchBar重新回到初始狀態
-                return <SecondRoute searchText={searchText} updateSearch={updateSearch} />;
+                return <SecondRoute
+                    searchText={searchText}
+                    updateSearch={updateSearch}
+                    translate={translate}
+                />;
             case 'third':
                 return <ThirdRoute />;
             case 'forth':
