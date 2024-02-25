@@ -84,7 +84,7 @@ export default function TabBar() {
             screenOptions={({ route }) => ({
                 headerShown: false, // Hides the header for each screen
                 tabBarStyle: {
-                    backgroundColor: '#888888',
+                    backgroundColor: '#666666',
                 },
                 tabBarIcon: ({ focused, color, size }) => { //focused為連結到該頁面的意思
                     let iconPath;
@@ -92,31 +92,31 @@ export default function TabBar() {
                     let iconTop;
                     if (route.name === t('ROUTE_NAME.HOME')) {
                         iconPath = focused
-                            ? require('../../../assets/home.png') :
+                            ? require('../../../assets/home_press.png') :
                             require('../../../assets/home.png');
                         iconSize = focused ? 30 : 24;
                         iconTop = focused ? 0 : 7.5;
                     } else if (route.name === t('ROUTE_NAME.MYPLACE')) {
                         iconPath = focused
-                            ? require('../../../assets/user.png') :
+                            ? require('../../../assets/user_press.png') :
                             require('../../../assets/user.png');
                         iconSize = focused ? 30 : 24;
                         iconTop = focused ? 0 : 7.5;
                     } else if (route.name == t('ROUTE_NAME.NOTE')) {
                         iconPath = focused
-                            ? require('../../../assets/calendar.png') :
+                            ? require('../../../assets/calendar_press.png') :
                             require('../../../assets/calendar.png');
                         iconSize = focused ? 30 : 24;
                         iconTop = focused ? 0 : 7.5;
                     } else if (route.name == t('ROUTE_NAME.REPORT')) {
                         iconPath = focused
-                            ? require('../../../assets/chart-histogram.png') :
+                            ? require('../../../assets/chart-histogram_press.png') :
                             require('../../../assets/chart-histogram.png');
                         iconSize = focused ? 30 : 24;
                         iconTop = focused ? 0 : 7.5;
                     } else if (route.name == t('ROUTE_NAME.PREMIUM')) {
                         iconPath = focused
-                            ? require('../../../assets/dollar.png') :
+                            ? require('../../../assets/dollar_press.png') :
                             require('../../../assets/dollar.png');
                         iconSize = focused ? 30 : 24;
                         iconTop = focused ? 0 : 7.5;
@@ -154,7 +154,6 @@ export default function TabBar() {
                             padding: 0,
                             display: showFont,
                             color: '#DDDDDD',
-
                         }} >
                             {route.name}
                         </Text>
