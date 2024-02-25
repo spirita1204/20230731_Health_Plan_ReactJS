@@ -28,7 +28,7 @@ const ThirdRoute = () => (
 const renderTabBar = (props) => (
   <TabBar
     {...props}// 顯示props.navigationStateroutes 資訊[卡路里 巨量 營養素]
-    style={{ backgroundColor: '#888888' }}
+    style={{ backgroundColor: '#666666' }}
     indicatorStyle={{
       backgroundColor: '#FFFFFF',
       height: 3

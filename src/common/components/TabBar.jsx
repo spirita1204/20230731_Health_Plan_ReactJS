@@ -14,12 +14,15 @@ import Report from '../../pages/Report';
 import CustomHeaderCalendar from './Header/CustomHeaderCalendar';
 import Avatar from './Avatar';
 import IconBox from './IconBox';
+import AlertBox from './AlertBox';
 // Provider
 import { HomeProvider } from '../contexts/HomeContext';
 import { MyPlaceProvider } from '../contexts/MyPlaceContext';
 import { NoteProvider } from '../contexts/NoteContext';
 import { ReportProvider } from '../contexts/ReportContext';
 import { PremiumProvider } from '../contexts/PremiumContext';
+// Navigate
+import { useNavigation } from '@react-navigation/native';
 
 // 包Wrapper
 function HomeWrapper() {
@@ -72,6 +75,7 @@ export default function TabBar() {
 
     const Tab = createBottomTabNavigator();
 
+    const navigation = useNavigation();
     // 多語系
     const { t } = useTranslation('common');
 
@@ -168,12 +172,11 @@ export default function TabBar() {
                         <Fragment>
                             <View style={styles.horizontal}>
                                 {/* 個人資訊 */}
-                                <Avatar />
-                                {/* 提醒按鈕 */}
-                                <IconBox
-                                    logo={'notifications-none'}
-                                    onPress={() => console.log('abc')}
+                                <Avatar
+                                    onPress={() => { navigation.navigate('AvatarPage'); }}
                                 />
+                                {/* 提醒按鈕 */}
+                                <AlertBox />
                             </View>
                         </Fragment>
                     ),
@@ -192,12 +195,11 @@ export default function TabBar() {
                     headerLeft: () => (
                         <View style={styles.horizontal}>
                             {/* 個人資訊 */}
-                            <Avatar />
-                            {/* 提醒按鈕 */}
-                            <IconBox
-                                logo={'notifications-none'}
-                                onPress={() => console.log('abc')}
+                            <Avatar
+                                onPress={() => { navigation.navigate('AvatarPage'); }}
                             />
+                            {/* 提醒按鈕 */}
+                            <AlertBox />
                         </View>
                     ),
                     headerRight: () => (
@@ -205,6 +207,7 @@ export default function TabBar() {
                             {/* 設定 */}
                             <IconBox
                                 logo={'settings'}
+                                onPress={() => { navigation.navigate('SettingPage'); }}
                             />
                         </Fragment>
                     ),
@@ -238,12 +241,11 @@ export default function TabBar() {
                     headerLeft: () => (
                         <View style={styles.horizontal}>
                             {/* 個人資訊 */}
-                            <Avatar />
-                            {/* 提醒按鈕 */}
-                            <IconBox
-                                logo={'notifications-none'}
-                                onPress={() => console.log('abc')}
+                            <Avatar
+                                onPress={() => { navigation.navigate('AvatarPage'); }}
                             />
+                            {/* 提醒按鈕 */}
+                            <AlertBox />
                         </View>
                     ),
                     headerRight: () => (
@@ -251,7 +253,7 @@ export default function TabBar() {
                             {/* 目標 */}
                             <IconBox
                                 logo={'track-changes'}
-                                onPress={() => console.log('abc')}
+                                onPress={() => { navigation.navigate('GoalPage'); }}
                             />
                         </Fragment>
                     ),

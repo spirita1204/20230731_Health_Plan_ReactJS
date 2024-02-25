@@ -2,20 +2,23 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { Image } from 'react-native-elements';
-import { Icon } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native';
-import IconBox from './IconBox';
 
-const Avatar = ({ imageUrl, headerHeight }) => {
+const Avatar = ({ imageUrl, headerHeight, onPress }) => {
     return (
         <View style={styles.container}>
             <Image
                 source={{ uri: imageUrl }}
                 style={(headerHeight) ? { ...styles.avatar, height: headerHeight } : styles.avatar}
-                onPress={() => { console.log('aaa'); }}
+                onPress={onPress}
             />
         </View>
     );
+};
+
+Avatar.propTypes = {
+    imageUrl: PropTypes.string,
+    headerHeight: PropTypes.string,
+    onPress: PropTypes.func
 };
 
 const styles = StyleSheet.create({

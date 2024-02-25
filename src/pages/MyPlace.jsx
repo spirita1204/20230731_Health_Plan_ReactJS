@@ -27,6 +27,7 @@ export default function MyPlace() {
           <ArrowButton
             title={translate('MYPLACE.TITLE.WEIGHT')}
             logo={'score'}
+            bold
           />
           <View style={styles.container4}>
             {/** 提醒 按鈕 */}
@@ -34,12 +35,14 @@ export default function MyPlace() {
               title={translate('MYPLACE.TITLE.ALERT')}
               logo={'timer'}
               borderTopRadius
+              bold
             />
             {/** 相簿 按鈕 */}
             <ArrowButton
               title={translate('MYPLACE.TITLE.ALBUM')}
               logo={'photo-camera-back'}
               borderBottomRadius
+              bold
             />
           </View>
           <View style={styles.container4}>
@@ -48,12 +51,14 @@ export default function MyPlace() {
               title={translate('MYPLACE.TITLE.PRIVACY')}
               logo={'privacy-tip'}
               borderTopRadius
+              bold
             />
             {/** 聯絡我們 按鈕 */}
             <ArrowButton
               title={translate('MYPLACE.TITLE.CONTACT_US')}
               logo={'contacts'}
               borderBottomRadius
+              bold
             />
           </View>
         </View>

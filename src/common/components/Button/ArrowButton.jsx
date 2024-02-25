@@ -5,43 +5,58 @@ import PropTypes from 'prop-types';
 import { Icon } from 'react-native-elements';
 import { TouchableOpacity, Text } from 'react-native';
 
-export default function ArrowButton({ title, logo, onPress, borderTopRadius, borderBottomRadius }) {
+export default function ArrowButton({ title, subTitle, bold, logo, onPress, borderTopRadius, borderBottomRadius }) {
     return (
         <Fragment>
-            <View style={borderTopRadius
-                ?
-                {
-                    ...styles.container,
-                    borderBottomLeftRadius: 0,
-                    borderBottomRightRadius: 0
-                }
-                : (borderBottomRadius)
-                    ? {
-                        ...styles.container,
-                        borderTopLeftRadius: 0,
-                        borderTopRightRadius: 0
-                    }
-                    : {
-                        ...styles.container,
-                    }
-            }>
-                <TouchableOpacity onPress={onPress}>
-                    <View style={styles.ButtonContainer}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Icon name={logo} style={styles.icon} size={styles.buttonText.fontSize * 1.5} color={'#444444'} />
-                            <Text style={styles.buttonText}>{title}</Text>
+            <TouchableOpacity onPress={onPress}>
+                <View style={
+                    (borderTopRadius && borderBottomRadius) ?
+                        {
+                            ...styles.container,
+                            borderBottomLeftRadius: 0,
+                            borderBottomRightRadius: 0,
+                            borderTopLeftRadius: 0,
+                            borderTopRightRadius: 0
+                        }
+                        :
+                        (borderTopRadius)
+                            ?
+                            {
+                                ...styles.container,
+                                borderBottomLeftRadius: 0,
+                                borderBottomRightRadius: 0
+                            }
+                            : (borderBottomRadius)
+                                ? {
+                                    ...styles.container,
+                                    borderTopLeftRadius: 0,
+                                    borderTopRightRadius: 0
+                                }
+                                : {
+                                    ...styles.container,
+                                }
+                }>
+
+                    <View style={styles.buttonContainer}>
+                        <View style={{ flexDirection: 'row' }}>
+                            {logo && <Icon name={logo} style={styles.icon} size={styles.buttonText.fontSize * 1.5} color={'#444444'} />}
+                            <View style={{ flexDirection: 'column' }}>
+                                <Text style={bold ? { ...styles.buttonText, fontWeight: 'bold' } : { ...styles.buttonText }}>{title}</Text>
+                                {subTitle && <Text style={styles.buttonText2}>{subTitle}</Text>}
+                            </View>
                         </View>
                         <Icon name="navigate-next" size={styles.buttonText.fontSize * 1.5} color={'#444444'} />
                     </View>
-                </TouchableOpacity>
-            </View>
-
+                </View>
+            </TouchableOpacity>
         </Fragment>
     );
 }
 
 ArrowButton.propTypes = {
     title: PropTypes.string,
+    subTitle: PropTypes.string,
+    bold: PropTypes.bool,
     logo: PropTypes.string,
     onPress: PropTypes.func,
     borderTopRadius: PropTypes.bool,
@@ -63,13 +78,17 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#FFFFFF',
-        fontWeight: 'bold', // 加粗
-        fontSize: 16, // 字体大小
+        fontSize: 15, // 字体大小
     },
-    ButtonContainer: {
+    buttonText2: {
+        color: '#00DD00',
+        fontSize: 15, // 字体大小
+    },
+    buttonContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        flex: 1 // Add this line
     },
     icon: {
         marginRight: 8

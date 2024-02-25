@@ -19,6 +19,8 @@ import CustomHeaderCamera from '../common/components/Header/CustomHeaderCamera';
 import Foods from '../pages/Foods';
 import HomePage from '../pages/HomePage';
 import SettingPage from '../pages/settings/SettingPage';
+import AvatarPage from '../pages/avatars/AvatarPage';
+import GoalPage from '../pages/goals/GoalPage';
 
 function FoodsWrapper() {
     return (
@@ -68,7 +70,21 @@ function WrapPage() {
                     name="SettingPage"
                     component={SettingPage}
                     options={{
-                        headerTitle: '設定', // 不顯示標題
+                        headerTitle: '設定',
+                    }}
+                />
+                <Stack.Screen
+                    name="AvatarPage"
+                    component={AvatarPage}
+                    options={{
+                        headerTitle: '我的日記',
+                    }}
+                />
+                <Stack.Screen
+                    name="GoalPage"
+                    component={GoalPage}
+                    options={{
+                        headerTitle: '我的目標',
                     }}
                 />
             </Stack.Navigator>

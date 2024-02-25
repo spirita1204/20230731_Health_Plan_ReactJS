@@ -4,17 +4,12 @@ import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
-import { useNavigation } from '@react-navigation/native';
 
-export default function IconBox({ logo }) {
-    const navigation = useNavigation();
-    
+export default function IconBox({ logo, onPress }) {
     return (
         <Fragment>
             <TouchableOpacity
-                onPress={() => { 
-                    navigation.navigate('SettingPage');
-                }}
+                onPress={onPress}
             >
                 <View style={styles.alert}>
                     <Icon name={logo} size={30} color={'#FFFFFF'} />
@@ -26,9 +21,7 @@ export default function IconBox({ logo }) {
 
 IconBox.propTypes = {
     logo: PropTypes.string,
-    navigation: PropTypes.shape({
-        navigate: PropTypes.func.isRequired,
-    })
+    onPress: PropTypes.func
 };
 
 const styles = StyleSheet.create({

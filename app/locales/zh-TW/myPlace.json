@@ -8,6 +8,9 @@
             "PRIVACY": "通訊和隱私權",
             "CONTACT_US": "聯絡我們",
             "LANGUAGE": "切換語言"
+        },
+        "SETTING_PAGE": {
+            "ACCOUNT_MANAGE": "帳號管理"
         }
     }
 }
