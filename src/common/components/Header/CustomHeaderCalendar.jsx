@@ -4,7 +4,6 @@ import {
     View,
     TouchableOpacity,
     Text,
-    ScrollView,
     Dimensions,
     Animated, // 動態呈現日曆
     Easing,
@@ -14,6 +13,7 @@ import { StyleSheet } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { LocaleConfig } from 'react-native-calendars';
 import PropTypes from 'prop-types';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 /**
  * 自定義配置 顯示中文日期(TODO)
@@ -43,11 +43,30 @@ const formateToday = (addDay = 0) => {
 
 export default function CustomHeaderCalendar() {
 
+    // 用來定樣日曆以外透明區域座標buttom
+    const [bottom, setBottom] = useState(-329);// -329
+    // 日曆組件的高度(用來定樣日曆以外透明區域座標top)
+    const [calendarHeight, setCalendarHeight] = useState(0);// 314.3333435058594
+    // 是否顯示日曆
     const [showCalendar, setShowCalendar] = useState(false);
+    // 定義選擇日期
     const [selectedDate, setSelectedDate] = useState(formateToday());
 
+    // 獲取header的Ref
+    const headerRef = useRef(null);
+    // 獲取日立高度的Ref
+    const calendarRef = useRef(null);
+    // 定義動畫的ref
     const animation = useRef(new Animated.Value(0)).current;
 
+    // 取得螢幕高度
+    const { height: screenHeight } = Dimensions.get('window');
+    // 取得tabBar高度
+    const tabBarHeight = useBottomTabBarHeight();
+
+    /**
+     * 展開日曆
+     */
     const expandCalendar = () => {
         console.debug('expandCalendar');
         Animated.timing(animation, {
@@ -58,6 +77,9 @@ export default function CustomHeaderCalendar() {
         }).start();
     };
 
+    /**
+     * 收闔日曆
+     */
     const collapseCalendar = () => {
         console.debug('collapseCalendar');
         Animated.timing(animation, {
@@ -141,10 +163,31 @@ export default function CustomHeaderCalendar() {
         }
     };
 
+    const handleOutsidePress = () => {
+        setShowCalendar(false); // 点击区域外部时收起日历组件
+    };
+
+    console.log(screenHeight - 56 - tabBarHeight, 'total');
+
+    useEffect(() => {
+        if (headerRef.current && showCalendar) {
+            headerRef.current.measure((x, y, width, height) => {
+                // 可用高度 = 螢幕高度 - header高度 - tabBar高度
+                const avilHeight = screenHeight - height - tabBarHeight;
+                // bottom 定義日曆透明區域範圍
+                console.log(calendarHeight - avilHeight, 'calendarHei2ght - avilHeight');
+                setBottom(calendarHeight - avilHeight);
+            });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [calendarHeight, screenHeight, tabBarHeight]);
+
     return (
         <Fragment>
             <TouchableOpacity
                 onPress={handleBackPress}
+                style={{ flex: 1, justifyContent: 'center' }}//讓其覆蓋header 用於headerRef計算高度用
+                ref={headerRef}
             >
                 <View style={styles.horizontal}>
                     <Text style={styles.text}>{showHeaderText(selectedDate)}</Text>
@@ -154,11 +197,15 @@ export default function CustomHeaderCalendar() {
             </TouchableOpacity>
             {/* {showCalendar && ( */}
             {/** 透過展開動畫方式呈現 showCalendar避免覆蓋到Note使其無法點擊*/}
-            {showCalendar && <Animated.View style={[styles.calendarContainer,
-            {
-                // Bind calendarHeight to animated value 
-                opacity: animation
-            }]}>
+            {showCalendar && <Animated.View
+                onLayout={(event) => {
+                    setCalendarHeight(event.nativeEvent.layout.height);
+                }}
+                style={[styles.calendarContainer,
+                {
+                    // Bind calendarHeight to animated value 
+                    opacity: animation
+                }]}>
                 <Calendar
                     // Initially visible month. Default = now
                     initialDate={formateToday()}
@@ -209,9 +256,14 @@ export default function CustomHeaderCalendar() {
                         textDayFontSize: 15,
                         textMonthFontSize: 12,
                         textDayHeaderFontSize: 12,
-                        //todayTextColor: '#FF8888',
                     }}
                     style={styles.calendar} // 设置圆角半径}
+                />
+                <TouchableOpacity
+                    style={{ ...styles.touchableArea, top: calendarHeight, bottom: bottom }}
+                    onPress={handleOutsidePress} // 手指按下，弹起
+                    onPressIn={handleOutsidePress}// 手指按下，不弹起
+                    activeOpacity={1}
                 />
             </Animated.View>}
             {/* )} */}
@@ -251,5 +303,14 @@ const styles = StyleSheet.create({
     calendar: {
         borderBottomLeftRadius: 10, // 设置圆角半径
         borderBottomRightRadius: 10
+    },
+    touchableArea: {
+        position: 'absolute',
+        // top: 313,// 642
+        // bottom: -329,
+        left: 0,
+        right: 0,
+        backgroundColor: 'transparent',
+        zIndex: 999, // 确保透明区域在日历组件之上
     },
 });
