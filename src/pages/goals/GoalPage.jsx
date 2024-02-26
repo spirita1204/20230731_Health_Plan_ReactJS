@@ -22,8 +22,8 @@ function TextInputWrapper({ text, onChangeText }) {
 }
 
 TextInputWrapper.propTypes = {
-    text: PropTypes.string.isRequired,
-    onChangeText: PropTypes.func.isRequired,
+    text: PropTypes.string,
+    onChangeText: PropTypes.func,
 };
 
 export default function GoalPage() {

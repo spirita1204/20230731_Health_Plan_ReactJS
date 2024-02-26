@@ -94,11 +94,13 @@ export default function SettingPage() {
                     borderBottomRadius
                 />
                 {/* 登出 */}
-                <Button
-                    title={'登出'}
-                    buttonStyle={styles.button}
-                    titleStyle={styles.buttonText}
-                />
+                <View style={{ marginTop: 25, marginBottom: 25 }}>
+                    <Button
+                        title={'登出'}
+                        buttonStyle={styles.button}
+                        titleStyle={styles.buttonText}
+                    />
+                </View>
             </ScrollView>
 
         </Fragment>
@@ -129,11 +131,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#666666',
         borderRadius: 10,
         height: 50,
-        margin: 25,
+        marginLeft: 25,
+        marginRight: 25,
     },
     buttonText: {
         color: '#00DD00',
         fontWeight: 'bold', // 加粗
         fontSize: 16, // 字体大小
-    },
+    }
 });
