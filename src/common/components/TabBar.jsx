@@ -149,7 +149,7 @@ export default function TabBar() {
                     return (
                         <Text style={{
                             fontSize: 12,
-                            marginTop: 9,
+                            marginTop: 12,
                             marginBottom: 7,
                             padding: 0,
                             display: showFont,

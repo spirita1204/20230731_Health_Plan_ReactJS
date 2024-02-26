@@ -5,22 +5,25 @@ import PropTypes from 'prop-types';
 import { TabView, TabBar } from 'react-native-tab-view';
 import { Fragment } from 'react';
 import { ReportContext } from '../common/contexts/ReportContext';
+import Calories from './reports/Calories';
+import Macronutrients from './reports/Macronutrients';
+import Nutrients from './reports/Nutrients';
 
 const FirstRoute = () => (
   <View style={styles.container}>
-
+    <Calories />
   </View>
 );
 
 const SecondRoute = () => (
   <View style={styles.container}>
-
+    <Macronutrients />
   </View>
 );
 
 const ThirdRoute = () => (
   <View style={styles.container}>
-
+    <Nutrients />
   </View>
 );
 
@@ -91,6 +94,7 @@ Report.defaoultProps = {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#444444'
+    backgroundColor: '#444444',
+    flex: 1
   },
 });
