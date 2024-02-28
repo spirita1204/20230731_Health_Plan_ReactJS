@@ -20,6 +20,7 @@
     "@rnui/checkbox": "^1.0.3",
     "@uiw/react-heat-map": "^2.2.1",
     "apexcharts": "^3.45.2",
+    "axios": "^1.6.7",
     "chart.js": "^4.4.1",
     "expo": "^49.0.22",
     "expo-checkbox": "~2.4.0",

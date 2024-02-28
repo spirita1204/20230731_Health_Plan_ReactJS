@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { Fragment } from 'react';
 import LongPressButton from '../common/components/Button/LongPressButton';
 import DonutPieChart from '../common/components/Charts/DonutPieChart';
@@ -7,7 +7,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Image, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { NoteContext } from '../common/contexts/NoteContext';
-
+import api from '../common/services/noteService';
 /**
  * 日記
  * 
@@ -29,6 +29,21 @@ export default function Note({ navigation }) {
     const handlClick = useCallback((choose) => {
         navigation.navigate('Foods', { choose: choose });
     }, [navigation]);
+
+    useEffect(() => {
+        console.log('into useeffect');
+        const handleApiResponse = (res, status) => {
+            console.log(status, '[status]');
+        };
+
+        // 呼叫查詢帳號 API，並傳入成功回調函數和失敗回調函數
+        api.fetchAccountData(
+            // 定義成功回調函數
+            (res) => handleApiResponse(res, true),
+            // 定義失敗回調函數(非營業時間使用本交易)
+            (res) => handleApiResponse(res, false),
+        );
+    }, []);
 
     return (
         <Fragment>
