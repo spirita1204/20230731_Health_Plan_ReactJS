@@ -1,102 +1,149 @@
 import React from 'react';
 import { Fragment } from 'react';
-import { Icon, Text } from 'react-native-elements';
-import { StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-elements';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 
-function EatedFood({ food, times, calories, red, green, type, iconColor }) {
-  const foodStyle = red || green ? { ...styles.subTitle, color: green ? '#00FF00' : '#FF5151' } : styles.subTitle;
-  const timesStyle = red ? { ...styles.subTitle, color: '#FF5151' } : styles.subTitle;
-  const caloriesStyle = red || green ? { ...styles.subTitle, color: green ? '#00FF00' : '#FF5151' } : styles.subTitle;
-
-  const timeString = type === 'FOOD' ? 'x' + times + ' =' : '(' + times + '%)';
-
-  const renderFood = iconColor
-    ? (<View style={{ flex: 2, flexDirection: 'row', alignItems: 'center' }}>
-      <Icon name="stop" size={25} color={iconColor} />
-      <Text style={foodStyle}>{food}</Text>
-    </View>)
-    : (<View style={{ flex: 2 }}>
-      <Text style={foodStyle}>{food}</Text>
-    </View>);
+function Nutrient({ food, total, target, addSub }) {
 
   return (
     <View style={styles.content}>
-      {renderFood}
-      <View style={{ flex: 1, alignItems: 'flex-end' }}>
-        <Text style={timesStyle}>{timeString}</Text>
+      <View style={{ flex: 2 }}>
+        <Text style={{ ...styles.subTitle, color: '#00FF00' }}>{food}</Text>
       </View>
       <View style={{ flex: 1, alignItems: 'flex-end' }}>
-        <Text style={caloriesStyle}>{calories}</Text>
+        <Text style={styles.subTitle}>{total}</Text>
+      </View>
+      <View style={{ flex: 1, alignItems: 'flex-end' }}>
+        <Text style={styles.subTitle}>{target}</Text>
+      </View>
+      <View style={{ flex: 1, alignItems: 'flex-end' }}>
+        <Text style={styles.subTitle}>{addSub}</Text>
       </View>
     </View>
   );
 }
 
-EatedFood.propTypes = {
+Nutrient.propTypes = {
   food: PropTypes.string.isRequired,
-  times: PropTypes.string.isRequired,
-  calories: PropTypes.string.isRequired,
-  red: PropTypes.bool,
-  green: PropTypes.bool,
-  type: PropTypes.string.isRequired,
-  iconColor: PropTypes.string
-};
-
-
-EatedFood.defaultProps = {
-  type: ''
+  total: PropTypes.string,
+  target: PropTypes.string,
+  addSub: PropTypes.string
 };
 
 export default function Nutrients() {
   return (
     <Fragment>
-      <View style={{ ...styles.container2 }}>
-        <View style={styles.header}>
-          <Text style={styles.title}>營養素</Text>
-          <View style={styles.content}>
-            <View style={{ flex: 3 }}>
-              <Text style={styles.subTitle}>營養素</Text>
-            </View>
-            <View style={{ flex: 1, alignItems: 'flex-end' }}>
-              <Text style={styles.subTitle}>總數</Text>
-            </View>
-            <View style={{ flex: 1, marginLeft: 20, alignItems: 'flex-end' }}>
-              <Text style={styles.subTitle}>目標值</Text>
-            </View>
-            <View style={{ flex: 1, marginLeft: 20, alignItems: 'flex-end' }}>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.subTitle}>[</Text>
-                <Text style={{ ...styles.subTitle, color: '#FF5151' }}>+</Text>
-                <Text style={styles.subTitle}>/-]</Text>
+      <ScrollView>
+        <View style={styles.container2}>
+          <View style={styles.header}>
+            <Text style={styles.title}>營養素</Text>
+            <View style={styles.content}>
+              <View style={{ flex: 3 }}>
+                <Text style={styles.subTitle}>營養素</Text>
+              </View>
+              <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                <Text style={styles.subTitle}>總數</Text>
+              </View>
+              <View style={{ flex: 1, marginLeft: 20, alignItems: 'flex-end' }}>
+                <Text style={styles.subTitle}>目標值</Text>
+              </View>
+              <View style={{ flex: 1, marginLeft: 20, alignItems: 'flex-end' }}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text style={styles.subTitle}>[</Text>
+                  <Text style={{ ...styles.subTitle, color: '#FF5151' }}>+</Text>
+                  <Text style={styles.subTitle}>/-]</Text>
+                </View>
               </View>
             </View>
+            <View style={styles.horizontalSeparator} />
+            <Nutrient
+              food={'卡路里(千卡)'}
+              total={'191'}
+              target={'10500'}
+              addSub={'-10309'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <Nutrient
+              food={'蛋白質(克'}
+              total={'30'}
+              target={'525'}
+              addSub={'-495'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <Nutrient
+              food={'碳水化合物'}
+              total={'4'}
+              target={'1316'}
+              addSub={'-1312'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <Nutrient
+              food={'纖維(克)'}
+              total={'-'}
+              target={'-'}
+              addSub={'-'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <Nutrient
+              food={'糖(克'}
+              total={'-'}
+              target={'-'}
+              addSub={'-'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <Nutrient
+              food={'脂肪(克)'}
+              total={'6'}
+              target={'350'}
+              addSub={'-344'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <Nutrient
+              food={'飽和脂肪(克)'}
+              total={'-'}
+              target={'-'}
+              addSub={'-'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <Nutrient
+              food={'多元不飽和脂肪(克)'}
+              total={'-'}
+              target={'-'}
+              addSub={'-'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <Nutrient
+              food={'單元不飽和脂肪(克)'}
+              total={'-'}
+              target={'-'}
+              addSub={'-'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <Nutrient
+              food={'膽固醇(毫克)'}
+              total={'-'}
+              target={'-'}
+              addSub={'-'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <Nutrient
+              food={'鈉(毫克)'}
+              total={'-'}
+              target={'-'}
+              addSub={'-'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <Nutrient
+              food={'鉀(毫克)'}
+              total={'-'}
+              target={'-'}
+              addSub={'-'}
+            />
+            <View style={styles.horizontalSeparator} />
           </View>
-          <View style={styles.horizontalSeparator} />
-          <EatedFood
-            food={'奕順軒'}
-            times={'14'}
-            calories={'156'}
-            type={'FOOD'}
-          />
-          <View style={styles.horizontalSeparator} />
-          <EatedFood
-            food={'Oero巧克力'}
-            times={'2'}
-            calories={'15644'}
-            type={'FOOD'}
-          />
-          <View style={styles.horizontalSeparator} />
-          <EatedFood
-            food={'總數'}
-            times={'16'}
-            calories={'15800'}
-            type={'FOOD'}
-            red
-          />
-          <View style={styles.horizontalSeparator} />
         </View>
-      </View>
+      </ScrollView>
     </Fragment>
   );
 }
@@ -108,6 +155,7 @@ const styles = StyleSheet.create({
   container2: {
     backgroundColor: '#666666',
     marginTop: 10,
+    marginBottom: 10,
     marginLeft: 10,
     marginRight: 10
   },
@@ -137,6 +185,8 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 4,
+    marginBottom: 4
   },
   horizontalSeparator: {
     height: 1,

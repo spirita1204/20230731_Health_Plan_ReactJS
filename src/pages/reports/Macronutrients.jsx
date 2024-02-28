@@ -1,33 +1,57 @@
 import React from 'react';
 import { Fragment } from 'react';
 import { Icon, Text } from 'react-native-elements';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 
-function EatedFood({ food, times, calories, red, green, type, iconColor }) {
-  const foodStyle = red || green ? { ...styles.subTitle, color: green ? '#00FF00' : '#FF5151' } : styles.subTitle;
+function EatedComposition({ food, times, target, red, iconColor }) {
   const timesStyle = red ? { ...styles.subTitle, color: '#FF5151' } : styles.subTitle;
-  const caloriesStyle = red || green ? { ...styles.subTitle, color: green ? '#00FF00' : '#FF5151' } : styles.subTitle;
-
-  const timeString = type === 'FOOD' ? 'x' + times + ' =' : '(' + times + '%)';
 
   const renderFood = iconColor
     ? (<View style={{ flex: 2, flexDirection: 'row', alignItems: 'center' }}>
       <Icon name="stop" size={25} color={iconColor} />
-      <Text style={foodStyle}>{food}</Text>
+      <Text style={{ ...styles.subTitle, color: '#00FF00' }}>{food}</Text>
     </View>)
     : (<View style={{ flex: 2 }}>
-      <Text style={foodStyle}>{food}</Text>
+      <Text style={styles.subTitle}>{food}</Text>
     </View>);
 
   return (
     <View style={styles.content}>
       {renderFood}
       <View style={{ flex: 1, alignItems: 'flex-end' }}>
-        <Text style={timesStyle}>{timeString}</Text>
+        <Text style={timesStyle}>{times == 0 ? '-' : times + '%'}</Text>
       </View>
       <View style={{ flex: 1, alignItems: 'flex-end' }}>
-        <Text style={caloriesStyle}>{calories}</Text>
+        <Text style={styles.subTitle}>{target == 0 ? '-' : target + '%'}</Text>
+      </View>
+    </View>
+  );
+}
+
+EatedComposition.propTypes = {
+  food: PropTypes.string.isRequired,
+  times: PropTypes.string.isRequired,
+  target: PropTypes.string.isRequired,
+  red: PropTypes.bool,
+  iconColor: PropTypes.string
+};
+
+function EatedFood({ food, carbohydrate, fat, protein }) {
+
+  return (
+    <View style={styles.content}>
+      <View style={{ flex: 2 }}>
+        <Text style={styles.subTitle}>{food}</Text>
+      </View>
+      <View style={{ flex: 1, alignItems: 'flex-end' }}>
+        <Text style={styles.subTitle}>{carbohydrate}</Text>
+      </View>
+      <View style={{ flex: 1, alignItems: 'flex-end' }}>
+        <Text style={styles.subTitle}>{fat}</Text>
+      </View>
+      <View style={{ flex: 1, alignItems: 'flex-end' }}>
+        <Text style={styles.subTitle}>{protein}</Text>
       </View>
     </View>
   );
@@ -35,110 +59,101 @@ function EatedFood({ food, times, calories, red, green, type, iconColor }) {
 
 EatedFood.propTypes = {
   food: PropTypes.string.isRequired,
-  times: PropTypes.string.isRequired,
-  calories: PropTypes.string.isRequired,
-  red: PropTypes.bool,
-  green: PropTypes.bool,
-  type: PropTypes.string.isRequired,
-  iconColor: PropTypes.string
-};
-
-
-EatedFood.defaultProps = {
-  type: ''
+  carbohydrate: PropTypes.string.isRequired,
+  fat: PropTypes.string.isRequired,
+  protein: PropTypes.string.isRequired,
 };
 
 export default function Macronutrients() {
   return (
     <Fragment>
-      <View style={{ ...styles.container2 }}>
-        <View style={styles.header}>
-          <Text style={styles.title}>巨量營養素</Text>
-          <Text style={styles.title2}>708</Text>
-          <View style={styles.content}>
-            <View style={{ flex: 3 }}>
-              <Text style={styles.subTitle}></Text>
+      <ScrollView>
+        <View style={styles.container2}>
+          <View style={styles.header}>
+            <Text style={styles.title}>巨量營養素</Text>
+            <Text style={styles.title2}>708</Text>
+            <View style={styles.content}>
+              <View style={{ flex: 3 }}>
+                <Text style={styles.subTitle}></Text>
+              </View>
+              <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                <Text style={styles.subTitle}>總數</Text>
+              </View>
+              <View style={{ flex: 1, marginLeft: 20, alignItems: 'flex-end' }}>
+                <Text style={styles.subTitle}>目標值</Text>
+              </View>
             </View>
-            <View style={{ flex: 1, alignItems: 'flex-end' }}>
-              <Text style={styles.subTitle}>總數</Text>
-            </View>
-            <View style={{ flex: 1, marginLeft: 20, alignItems: 'flex-end' }}>
-              <Text style={styles.subTitle}>目標值</Text>
-            </View>
+            <View style={styles.horizontalSeparator} />
+            <EatedComposition
+              food={'碳水化合物'}
+              times={'36'}
+              target={'24'}
+              iconColor={'#46A3FF'}
+              red
+            />
+            <View style={styles.horizontalSeparator} />
+            <EatedComposition
+              food={'脂肪'}
+              times={'42'}
+              target={'28'}
+              iconColor={'#FFAA00'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <EatedComposition
+              food={'蛋白質'}
+              times={'0'}
+              target={'0'}
+              iconColor={'#FF7575'}
+            />
+            <View style={styles.horizontalSeparator} />
           </View>
-          <View style={styles.horizontalSeparator} />
-          <EatedFood
-            food={'碳水化合物'}
-            times={'36'}
-            calories={'254'}
-            green
-            iconColor={'#46A3FF'}
-          />
-          <View style={styles.horizontalSeparator} />
-          <EatedFood
-            food={'脂肪'}
-            times={'42'}
-            calories={'298'}
-            green
-            iconColor={'#FFAA00'}
-          />
-          <View style={styles.horizontalSeparator} />
-          <EatedFood
-            food={'蛋白質'}
-            times={'0'}
-            calories={'-'}
-            green
-            iconColor={'#FF7575'}
-          />
-          <View style={styles.horizontalSeparator} />
         </View>
-      </View>
-      <View style={{ ...styles.container2 }}>
-        <View style={styles.header}>
-          <Text style={styles.title}>已攝取的食物</Text>
-          <View style={styles.content}>
-            <View style={{ flex: 3 }}>
-              <Text style={styles.subTitle}>食物</Text>
+        <View style={{ ...styles.container2, marginBottom: 10 }}>
+          <View style={styles.header}>
+            <Text style={styles.title}>已攝取的食物</Text>
+            <View style={styles.content}>
+              <View style={{ flex: 3 }}>
+                <Text style={styles.subTitle}>食物</Text>
+              </View>
+              <View style={{ flex: 1, flexDirection: 'column', alignItems: 'flex-end' }}>
+                <Text style={styles.subTitle}>碳水化</Text>
+                <Text style={styles.subTitle}>合物</Text>
+                <Text style={styles.subTitle}>(克)</Text>
+              </View>
+              <View style={{ flex: 1, flexDirection: 'column', marginLeft: 20, alignItems: 'flex-end' }}>
+                <Text style={styles.subTitle}>脂肪</Text>
+                <Text style={styles.subTitle}>(克)</Text>
+              </View>
+              <View style={{ flex: 1, flexDirection: 'column', marginLeft: 20, alignItems: 'flex-end' }}>
+                <Text style={styles.subTitle}>蛋白質</Text>
+                <Text style={styles.subTitle}>(克)</Text>
+              </View>
             </View>
-            <View style={{ flex: 1, flexDirection: 'column', alignItems: 'flex-end' }}>
-              <Text style={styles.subTitle}>碳水化</Text>
-              <Text style={styles.subTitle}>合物</Text>
-              <Text style={styles.subTitle}>(克)</Text>
-            </View>
-            <View style={{ flex: 1, flexDirection: 'column', marginLeft: 20, alignItems: 'flex-end' }}>
-              <Text style={styles.subTitle}>脂肪</Text>
-              <Text style={styles.subTitle}>(克)</Text>
-            </View>
-            <View style={{ flex: 1, flexDirection: 'column', marginLeft: 20, alignItems: 'flex-end' }}>
-              <Text style={styles.subTitle}>蛋白質</Text>
-              <Text style={styles.subTitle}>(克)</Text>
-            </View>
+            <View style={styles.horizontalSeparator} />
+            <EatedFood
+              food={'奕順軒'}
+              carbohydrate={'4.00'}
+              fat={'6.10'}
+              protein={'30.10'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <EatedFood
+              food={'Oero巧克力'}
+              carbohydrate={'4.00'}
+              fat={'1.10'}
+              protein={'0'}
+            />
+            <View style={styles.horizontalSeparator} />
+            <EatedFood
+              food={'總數'}
+              carbohydrate={'8.00'}
+              fat={'7.20'}
+              protein={'30.10'}
+            />
+            <View style={styles.horizontalSeparator} />
           </View>
-          <View style={styles.horizontalSeparator} />
-          <EatedFood
-            food={'奕順軒'}
-            times={'14'}
-            calories={'156'}
-            type={'FOOD'}
-          />
-          <View style={styles.horizontalSeparator} />
-          <EatedFood
-            food={'Oero巧克力'}
-            times={'2'}
-            calories={'15644'}
-            type={'FOOD'}
-          />
-          <View style={styles.horizontalSeparator} />
-          <EatedFood
-            food={'總數'}
-            times={'16'}
-            calories={'15800'}
-            type={'FOOD'}
-            red
-          />
-          <View style={styles.horizontalSeparator} />
         </View>
-      </View>
+      </ScrollView>
     </Fragment>
   );
 }
