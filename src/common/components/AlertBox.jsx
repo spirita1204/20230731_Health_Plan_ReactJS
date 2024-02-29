@@ -63,10 +63,33 @@ export default function AlertBox() {
                             selectedButtonStyle={styles.selectedButtonStyle}
                             textStyle={styles.textStyle} // 未选中按钮的文字颜色
                         />
-                        <ScrollView>
-                            <Text style={{color:'#888888'}}>App 新的特色</Text>
-                            <News />
+                        {selectedIndex == 2 && <ScrollView>
+                            <Text style={{ color: '#888888', marginBottom: 5 }}>App 新的特色</Text>
+                            <News
+                                date={'2023年07月'}
+                                header2={'新語言上線'}
+                                header3={'現在HealthPlan應用程式已提供烏克蘭語'}
+                                context={'在最新的更新當中，HealthPlan應用程式的所有功能現都以支援烏克蘭語，這項更新為我們的烏克蘭語使用者提供了更直觀、更熟悉的應用程式體驗。'}
+                                image={'https://i1.poltava.to/uploads/2022/03/2022-03-17/visit-ukraine-today.jpg'}
+                                href={'立即體驗'}
+                                onPress={() => console.log('aaaa')}
+                            />
+                            <News
+                                date={'2023年07月'}
+                                header2={'新語言上線'}
+                                header3={'現在HealthPlan應用程式已提供烏克蘭語'}
+                                context={'在最新的更新當中，HealthPlan應用程式的所有功能現都以支援烏克蘭語，這項更新為我們的烏克蘭語使用者提供了更直觀、更熟悉的應用程式體驗。'}
+                                image={'https://i1.poltava.to/uploads/2022/03/2022-03-17/visit-ukraine-today.jpg'}
+                            />
+                            <News
+                                date={'2023年07月'}
+                                header2={'新語言上線'}
+                                header3={'現在HealthPlan應用程式已提供烏克蘭語'}
+                                context={'在最新的更新當中，HealthPlan應用程式的所有功能現都以支援烏克蘭語，這項更新為我們的烏克蘭語使用者提供了更直觀、更熟悉的應用程式體驗。'}
+                                image={'https://i1.poltava.to/uploads/2022/03/2022-03-17/visit-ukraine-today.jpg'}
+                            />
                         </ScrollView>
+                        }
                     </View>
                 </View>
             </Modal>

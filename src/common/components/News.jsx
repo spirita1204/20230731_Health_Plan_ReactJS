@@ -6,22 +6,23 @@ import { Text } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import { Image } from 'react-native-elements';
 
-export default function News({ date, context, image, href }) {
+export default function News({ date, header2, header3, context, image, href, onPress }) {
     return (
         <Fragment>
             <View style={styles.container}>
                 <View style={styles.horzional}>
-                    <Icon name={'new-releases'} color={'#FF7744'} size={10}></Icon>
+                    <Icon name={'new-releases'} color={'#FF7744'} size={20}></Icon>
                     <Text style={styles.header}>App特色</Text>
-                    <Text style={styles.date}>．2023年07月</Text>
+                    <Text style={styles.date}>{'．' + date}</Text>
                 </View>
-                <Text style={styles.header2}>新語言上線</Text>
-                <Text style={styles.header3}>現在HealthPlan應用程式已提供烏克蘭語</Text>
+                <Text style={styles.header2}>{header2}</Text>
+                <Text style={styles.header3}>{header3}</Text>
                 <Image
-                    style={{ width: 40, height: 40 }}
-                    source={{ uri: 'https://i1.poltava.to/uploads/2022/03/2022-03-17/visit-ukraine-today.jpg' }}>
+                    style={{ height: 150, margin: 10 }}
+                    source={{ uri: image }}>
                 </Image>
-                <Text style={styles.context}>在最新的更新當中，HealthPlan應用程式的所有功能現都以支援烏克蘭語，這項更新為我們的烏克蘭語使用者提供了更直觀、更熟悉的應用程式體驗。</Text>
+                <Text style={styles.context}>{context}</Text>
+                {href && <Text onPress={onPress} style={styles.href}>{href}</Text>}
             </View>
         </Fragment>
     );
@@ -36,34 +37,43 @@ PropTypes.propTypes = {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#666666',
-        borderRadius: 5
+        borderRadius: 5,
+        marginBottom: 10
     },
     horzional: {
-        marginTop: 5,
-        marginLeft: 5,
+        marginTop: 10,
+        marginLeft: 10,
         flexDirection: 'row'
     },
     header: {
         color: '#FF7744',
-        marginLeft: 5
+        marginLeft: 5,
+        marginBottom: 2
     },
     header2: {
         color: '#FFFFFF',
-        marginLeft: 5,
-        fontSize: 12
+        marginLeft: 10,
+        fontSize: 12,
+        marginBottom: 2
     },
     header3: {
         color: '#FFFFFF',
-        marginLeft: 5,
+        marginLeft: 10,
         fontSize: 12,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     context: {
         color: '#888888',
-        marginLeft: 5,
-        fontSize: 12
+        marginLeft: 10,
+        fontSize: 12,
+        marginBottom: 10
     },
     date: {
-        color: '#FFFFFF'
+        color: '#888888'
+    }, 
+    href : {
+        color: '#00DD00',
+        marginBottom: 15,
+        marginLeft: 10
     }
 });
