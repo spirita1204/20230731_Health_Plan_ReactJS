@@ -1,9 +1,10 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Fragment } from 'react';
-import { TouchableOpacity, Modal } from 'react-native';
+import { TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { View, StyleSheet, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { ButtonGroup } from 'react-native-elements';
+import News from './News';
 
 export default function AlertBox() {
     const [isVisible, setIsVisible] = useState(false);
@@ -62,6 +63,10 @@ export default function AlertBox() {
                             selectedButtonStyle={styles.selectedButtonStyle}
                             textStyle={styles.textStyle} // 未选中按钮的文字颜色
                         />
+                        <ScrollView>
+                            <Text style={{color:'#888888'}}>App 新的特色</Text>
+                            <News />
+                        </ScrollView>
                     </View>
                 </View>
             </Modal>
@@ -126,7 +131,7 @@ const styles = StyleSheet.create({
         borderColor: '#00DD00',
         borderWidth: 1.5,
         borderRadius: 20,
-        backgroundColor: '#888888'
+        backgroundColor: '#666666'
     },
     selectedButtonStyle: {
         backgroundColor: '#00AA55' // 选中按钮的背景颜色

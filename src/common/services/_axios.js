@@ -59,12 +59,12 @@ export function postTest(url, data) {
   return new Promise((resolve, reject) => {
     axios.post('http://192.168.135.116:8080/api/v1/movies')
       .then((response) => {
-        console.log('PostTest_response ');
+        console.log('PostTest_response');
         resolve([
           true,
           'Request successful',
-          'Response', // 假設 response 是您想要返回的数据
-          200 // 假設状态码是 200
+          'Response', // 假設 response 是您想要返回的數據
+          200 // 假設狀態碼是 200
         ]);
       })
       .catch((error) => {
@@ -73,7 +73,7 @@ export function postTest(url, data) {
           false,
           'Request failed',
           null,
-          error.code // 假設从错误对象中获取状态码
+          error.code // 假設從錯誤對象中獲取狀態碼
         ]);
       });
   });
