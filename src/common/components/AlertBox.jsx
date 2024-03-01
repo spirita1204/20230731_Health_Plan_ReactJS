@@ -63,6 +63,9 @@ export default function AlertBox() {
                             selectedButtonStyle={styles.selectedButtonStyle}
                             textStyle={styles.textStyle} // 未选中按钮的文字颜色
                         />
+                        {/* 收件匣 */}
+                        {/* 社群活動 */}
+                        {/* 最新消息 */}
                         {selectedIndex == 2 && <ScrollView>
                             <Text style={{ color: '#888888', marginBottom: 5 }}>App 新的特色</Text>
                             <News

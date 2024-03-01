@@ -12,6 +12,8 @@ import Report from '../../pages/Report';
 // import { default as Note } from '../../entries/note'; // 使用别名 Note
 // Header
 import CustomHeaderCalendar from './Header/CustomHeaderCalendar';
+import CustomHeaderSearch from './Header/CustomHeaderSearch';
+import CustomHeaderCalendarIcon from './Header/CustomHeaderCalendarIcon';
 import Avatar from './Avatar';
 import IconBox from './IconBox';
 import AlertBox from './AlertBox';
@@ -224,6 +226,17 @@ export default function TabBar() {
                     headerShown: true, // 顯示標題欄
                     headerLeft: () => (
                         <CustomHeaderCalendar /> // 小日曆
+                    ),
+                    headerRight: () => (
+                        <Fragment>
+                            <View style={{ flexDirection: 'row' }}>
+                                {/* 日曆按鈕 */}
+                                <CustomHeaderCalendarIcon />
+                                {/* 搜尋按鈕 */}
+                                <CustomHeaderSearch />
+                            </View>
+                        </Fragment>
+
                     ),
                     headerStyle: {
                         backgroundColor: '#444444', // 設置標題背景顏色

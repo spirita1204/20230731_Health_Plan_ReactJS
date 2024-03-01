@@ -4,14 +4,14 @@ import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 /**
- * 客製化照相機按鈕
+ * 客製化照搜尋按鈕
  * @returns 
  */
-const CustomHeaderCamera = () => {
+const CustomHeaderSearch = () => {
     const navigation = useNavigation();
 
     const handleBackPress = () => {
-        console.log('camera!!!');
+        navigation.navigate('Foods');
     };
 
     return (
@@ -20,10 +20,11 @@ const CustomHeaderCamera = () => {
             style={{
                 marginRight: 15, // Adjust the left margin to move it to the right
                 marginTop: 5, // Adjust the top margin to move it down
+                marginLeft: 10
             }}
         >
-            <Icon name="linked-camera" size={28} color="#00DD00" />
+            <Icon name="search" size={28} color="#FFFFFF" />
         </TouchableOpacity>
     );
 };
-export default CustomHeaderCamera;
+export default CustomHeaderSearch;

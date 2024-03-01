@@ -4,26 +4,26 @@ import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 /**
- * 客製化照相機按鈕
+ * 客製化日曆按鈕
  * @returns 
  */
-const CustomHeaderCamera = () => {
+const CustomHeaderCalendarIcon = () => {
     const navigation = useNavigation();
 
     const handleBackPress = () => {
-        console.log('camera!!!');
+        console.log('calendar!!!');
     };
 
     return (
         <TouchableOpacity
             onPress={handleBackPress}
             style={{
-                marginRight: 15, // Adjust the left margin to move it to the right
+                marginRight: 10, // Adjust the left margin to move it to the right
                 marginTop: 5, // Adjust the top margin to move it down
             }}
         >
-            <Icon name="linked-camera" size={28} color="#00DD00" />
+            <Icon name="event-available" size={28} color="#FFFFFF" />
         </TouchableOpacity>
     );
 };
-export default CustomHeaderCamera;
+export default CustomHeaderCalendarIcon;
