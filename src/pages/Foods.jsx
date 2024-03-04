@@ -1,4 +1,4 @@
-import React, { useCallback, useState, Fragment, useContext } from 'react';
+import React, { useCallback, useState, Fragment, useContext, useEffect } from 'react';
 import { useRoute } from '@react-navigation/native';
 import { View, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
 import { SearchBar } from 'react-native-elements';
@@ -8,16 +8,22 @@ import PropTypes from 'prop-types';
 import SearchHistory from '../common/components/SearchHistory';
 import ImageList from '../common/components/ImageList';
 import { FoodContext } from '../common/contexts/FoodContext';
+import api from '../common/services/foodsService';
 
 /**
  * 食譜
  * @returns
  */
-const FirstRoute = () => (
+const FirstRoute = ({ items }) => (
     <View style={styles.imageListContainer}>
-        <ImageList></ImageList>
+        <ImageList
+            items={items}
+        />
     </View>
 );
+FirstRoute.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.object),
+};
 
 /**
  * 食物
@@ -51,7 +57,6 @@ const SecondRoute = ({ searchText, updateSearch, translate }) => (
         <SearchHistory></SearchHistory>
     </ScrollView>
 );
-
 SecondRoute.propTypes = {
     searchText: PropTypes.string,
     updateSearch: PropTypes.func,
@@ -116,6 +121,7 @@ export default function Foods() {
 
     const [searchText, setSearchText] = useState('');
     const [index, setIndex] = useState(0);
+    const [recipes, setRecipes] = useState([]);
 
     const layout = useWindowDimensions();
 
@@ -134,7 +140,9 @@ export default function Foods() {
     const renderScene = ({ route }) => {
         switch (route.key) {
             case 'first':
-                return <FirstRoute />;
+                return <FirstRoute
+                    items={recipes}
+                />;
             case 'second':
                 // 透過傳遞參數方式 避免每次組件渲染造成SearchBar重新回到初始狀態
                 return <SecondRoute
@@ -155,6 +163,31 @@ export default function Foods() {
         setSearchText(search);
     }, []);
 
+
+    useEffect(() => {
+        console.log('取得食譜');
+
+        const handleApiResponse = (res, status) => {
+            if (status) {
+                const recipeInfos = res?.recipeInfos.map((e) => ({
+                    title: e.title,
+                    time: e.time
+                }));
+                setRecipes(recipeInfos);
+            }else {
+                setRecipes([]);
+            }
+        };
+
+        // 呼叫查詢帳號 API，並傳入成功回調函數和失敗回調函數
+        api.getRecipe(
+            // 定義成功回調函數
+            (res) => handleApiResponse(res, true),
+            // 定義失敗回調函數
+            (res) => handleApiResponse(res, false),
+        );
+    }, []);
+
     return (
         <Fragment>
             {/** 滾動Tab */}
@@ -172,7 +205,8 @@ export default function Foods() {
 const styles = StyleSheet.create({
     imageListContainer: {
         paddingTop: 7,
-        backgroundColor: '#444444'
+        backgroundColor: '#444444',
+        flex: 1
     },
     container: {
         padding: 10, // Add padding around the content

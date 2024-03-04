@@ -1,41 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { FlatList, StyleSheet, View, Text, Dimensions, Image } from 'react-native';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
-export default function ImageList() {
+
+ImageList.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object)
+};
+
+export default function ImageList({ items }) {
+
+  const { t } = useTranslation('common');
 
   const [dim] = useState((Dimensions.get('window').width - 30) / 2);
 
-  const items = [
-    { name: '法國麵包', time: '30分鐘' },
-    { name: '英國麵包', time: '30分鐘' },
-    { name: '德國麵包', time: '30分鐘' },
-    { name: '台灣麵包', time: '30分鐘' },
-    { name: '日本麵包', time: '30分鐘' },
-    { name: '香港麵包', time: '30分鐘' },
-    { name: '香蕉起司火腿麵包', time: '30分鐘' },
-    { name: '超級美味噴麵包', time: '30分鐘' },
-    { name: '日本麵包', time: '30分鐘' },
-    { name: '香港麵包', time: '30分鐘' },
-    { name: '香蕉起司火腿麵包', time: '30分鐘' },
-    { name: '超級美味噴麵包', time: '30分鐘' },
-    { name: '日本麵包', time: '30分鐘' },
-    { name: '香港麵包', time: '30分鐘' },
-    { name: '香蕉起司火腿麵包', time: '30分鐘' },
-    { name: '超級美味噴麵包', time: '30分鐘' },
+  const itemsTest = [
+    { title: '法國麵包', time: '30分鐘' },
+    { title: '英國麵包', time: '30分鐘' },
+    { title: '德國麵包', time: '30分鐘' },
+    { title: '台灣麵包', time: '30分鐘' },
+    { title: '日本麵包', time: '30分鐘' },
+    { title: '香港麵包', time: '30分鐘' },
+    { title: '香蕉起司火腿麵包', time: '30分鐘' },
+    { title: '超級美味噴麵包', time: '30分鐘' },
+    { title: '日本麵包', time: '30分鐘' },
+    { title: '香港麵包', time: '30分鐘' },
+    { title: '香蕉起司火腿麵包', time: '30分鐘' },
+    { title: '超級美味噴麵包', time: '30分鐘' },
+    { title: '日本麵包', time: '30分鐘' },
+    { title: '香港麵包', time: '30分鐘' },
+    { title: '香蕉起司火腿麵包', time: '30分鐘' },
+    { title: '超級美味噴麵包', time: '30分鐘' },
   ];
 
   return (
     <Fragment>
       <FlatList
-        data={items}
+        data={(items.length != 0 ? items : itemsTest)}
         numColumns={2}
         renderItem={({ item }) => (
           <View style={[styles.itemContainer, { width: dim, backgroundColor: '#888888' }]}>
             <Image source={{ uri: 'https://tokyo-kitchen.icook.network/uploads/recipe/cover/373627/63cf385d08778d22.jpg' }} style={styles.itemImage} />
             <View style={styles.overlay}>
-              <Text style={styles.itemName}>{item.name}</Text>
-              <Text style={styles.itemCode}>{item.time}</Text>
+              <Text style={styles.itemName}>{item.title}</Text>
+              <Text style={styles.itemCode}>{item.time + ' ' + t('TIME.MIN')}</Text>
             </View>
           </View>
         )}
@@ -62,12 +71,11 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   itemName: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#fff',
-    fontWeight: '600',
+    fontWeight: 'bold',
   },
   itemCode: {
-    fontWeight: '600',
     fontSize: 12,
     color: '#fff',
   },
