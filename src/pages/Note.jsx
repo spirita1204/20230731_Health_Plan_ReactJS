@@ -47,8 +47,8 @@ export default function Note({ navigation }) {
 
     return (
         <Fragment>
-            <ScrollView>
-                <View style={styles.container}>
+            <ScrollView style={styles.container}>
+                <View >
                     {/* 早午晚餐按鈕 */}
                     <LongPressButton
                         leftLogo={require('../../assets/english-breakfast.png')}
