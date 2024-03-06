@@ -42,7 +42,7 @@ i18n
         // 當前切換的語言沒有對應的翻譯則使用這個語言
         fallbackLng: 'zh-TW',
         // 將信息級別記錄到控制台輸出，幫助查找加載不工作的問題
-        debug: true,
+        debug: false,
         // 預設語言
         lng: 'zh-TW',
         // files

@@ -9,6 +9,7 @@ import SearchHistory from '../common/components/SearchHistory';
 import ImageList from '../common/components/ImageList';
 import { FoodContext } from '../common/contexts/FoodContext';
 import api from '../common/services/foodsService';
+import { ActivityIndicator } from 'react-native';
 
 /**
  * 食譜
@@ -117,11 +118,11 @@ const renderTabBar = (props) => (
 
 export default function Foods() {
     const route = useRoute();
-    console.log(route?.params?.choose, 'route');
 
     const [searchText, setSearchText] = useState('');
     const [index, setIndex] = useState(0);
     const [recipes, setRecipes] = useState([]);
+    const [loading, setLoading] = useState(true); // 新增一個 loading 狀態來追蹤 API 請求是否完成
 
     const layout = useWindowDimensions();
 
@@ -168,13 +169,17 @@ export default function Foods() {
         console.log('取得食譜');
 
         const handleApiResponse = (res, status) => {
+            setLoading(false); // 請求完成後將 loading 狀態設為 false
             if (status) {
-                const recipeInfos = res?.recipeInfos.map((e) => ({
+                console.log('取得食譜API成功');
+                const recipeInfos = res?.recipeInfos?.map((e) => ({
                     title: e.title,
-                    time: e.time
+                    time: e.time,
+                    imageBase64: e.imageBase64
                 }));
                 setRecipes(recipeInfos);
-            }else {
+            } else {
+                console.log('取得食譜API失敗');
                 setRecipes([]);
             }
         };
@@ -190,14 +195,19 @@ export default function Foods() {
 
     return (
         <Fragment>
-            {/** 滾動Tab */}
-            <TabView
-                renderTabBar={renderTabBar}
-                navigationState={{ index, routes }}
-                renderScene={renderScene}
-                onIndexChange={setIndex}
-                initialLayout={{ width: layout.width }}
-            />
+            {loading ? ( // 如果請求還在進行中，顯示載入中的提示或者 loading spinner
+                <View style={styles.loadingContainer}>
+                    <ActivityIndicator size='large' color="#FFFFFF" />
+                </View>
+            ) : ( // 請求完成後顯示 TabView
+                <TabView
+                    renderTabBar={renderTabBar}
+                    navigationState={{ index, routes }}
+                    renderScene={renderScene}
+                    onIndexChange={setIndex}
+                    initialLayout={{ width: layout.width }}
+                />
+            )}
         </Fragment>
     );
 }
@@ -211,5 +221,11 @@ const styles = StyleSheet.create({
     container: {
         padding: 10, // Add padding around the content
         backgroundColor: '#444444'
-    }
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#444444', // 可以根據您的 UI 配色設置背景色
+    },
 });

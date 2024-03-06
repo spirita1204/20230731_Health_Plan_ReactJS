@@ -32,17 +32,17 @@ export default function Note({ navigation }) {
 
     useEffect(() => {
         console.log('into useeffect');
-        const handleApiResponse = (res, status) => {
-            console.log(status, '[status]');
-        };
+        // const handleApiResponse = (res, status) => {
+        //     console.log(status, '[status]');
+        // };
 
-        // 呼叫查詢帳號 API，並傳入成功回調函數和失敗回調函數
-        api.fetchAccountData(
-            // 定義成功回調函數
-            (res) => handleApiResponse(res, true),
-            // 定義失敗回調函數(非營業時間使用本交易)
-            (res) => handleApiResponse(res, false),
-        );
+        // // 呼叫查詢帳號 API，並傳入成功回調函數和失敗回調函數
+        // api.fetchAccountData(
+        //     // 定義成功回調函數
+        //     (res) => handleApiResponse(res, true),
+        //     // 定義失敗回調函數(非營業時間使用本交易)
+        //     (res) => handleApiResponse(res, false),
+        // );
     }, []);
 
     return (

@@ -27,7 +27,6 @@ const FoodProvider = ({ children }) => {
         const props = {
             ns: /FOOD\./.test(key) ? 'food' : 'common',
         };
-        console.log(props, 'sdsa');
         return t(key, props);
     }, [t]);
 

@@ -42,7 +42,8 @@ const fetchWrapper = async (url, data) => {
 
 const fetchGetWrapper = async (url, data) => {
     try {
-        return await fetchGetData(url, data);
+        const responseData = await fetchGetData(url, data);
+        return [true, responseData];
     } catch (error) {
         return handleFetchError(error.message);
     }
@@ -54,16 +55,16 @@ const fetchGetWrapper = async (url, data) => {
  * 用於取得食譜，
  * 並進行處理後通過 onSuccess 或 onFailure 回調函數返回。
  */
-const getRecipe = async (onSuccess, onFailure, onBefore, onFinal) => {
-    onBefore && onBefore();
+const getRecipe = async (onSuccess, onFailure) => {
     const url = '/foods/getRecipe';
-    const responseData = await fetchGetWrapper(url);
-    //if (success) {
+    const [success, responseData] = await fetchGetWrapper(url);
+    console.log(success, 'success');
+    console.log(responseData, 'responsedaa');
+    if (success) {
         onSuccess && onSuccess(responseData);
-    // } else {
-    //     onFailure && onFailure(msg, responseCode);
-    // }
-    onFinal && onFinal();
+    } else {
+        onFailure && onFailure(responseData);
+    }
 };
 
 // 匯出物件

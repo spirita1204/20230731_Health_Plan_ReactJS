@@ -41,7 +41,14 @@ export default function ImageList({ items }) {
         numColumns={2}
         renderItem={({ item }) => (
           <View style={[styles.itemContainer, { width: dim, backgroundColor: '#888888' }]}>
-            <Image source={{ uri: 'https://tokyo-kitchen.icook.network/uploads/recipe/cover/373627/63cf385d08778d22.jpg' }} style={styles.itemImage} />
+            <Image
+              source={{
+                uri: (item.imageBase64)
+                  ? item.imageBase64
+                  : 'https://yesoffice.com.vn/wp-content/themes/zw-theme//assets/images/default.jpg'
+              }}
+              style={styles.itemImage}
+            />
             <View style={styles.overlay}>
               <Text style={styles.itemName}>{item.title}</Text>
               <Text style={styles.itemCode}>{item.time + ' ' + t('TIME.MIN')}</Text>
