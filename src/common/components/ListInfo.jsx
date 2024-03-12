@@ -5,7 +5,7 @@ import { Text } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements';
 import PropTypes from 'prop-types';
 
-export function ListInfos({ datas }) {
+export function ListInfos({ datas, onPress }) {
   return datas.map((e, i) =>
     <ListInfo
       key={i}
@@ -13,22 +13,22 @@ export function ListInfos({ datas }) {
       kcal={e.kcal}
       volume={e.volume}
       unit={e.unit}
+      onPress={onPress}
     />
   );
 }
 
-export default function ListInfo({ foodName, kcal, volume, unit }) {
+export default function ListInfo({ foodName, kcal, volume, unit, onPress }) {
   const [checked, setChecked] = useState(false);
 
   const handleOnPress = (e) => {
-    console.log(e);
     setChecked(!checked);
   };
 
   return (
     <Fragment>
       <TouchableOpacity
-        onPress={() => { }}
+        onPress={() => onPress(checked)}
         style={{
           marginRight: 0, // Adjust the left margin to move it to the right
           // marginTop: 10, // Adjust the top margin to move it down
@@ -69,6 +69,7 @@ ListInfo.propTypes = {
   kcal: PropTypes.number,
   volume: PropTypes.number,
   unit: PropTypes.string,
+  onPress: PropTypes.func
 };
 
 ListInfo.defaultProps = {

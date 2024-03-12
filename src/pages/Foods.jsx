@@ -158,6 +158,7 @@ const SecondRoute = ({ translate }) => {
                             <ListInfos
                                 // 搜尋結果
                                 datas={state.searchDatas}
+                                onPress={(e) => { console.log('12', e); }}
                             />}
                     </ScrollView>
                 )}
