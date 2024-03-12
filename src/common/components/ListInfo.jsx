@@ -3,8 +3,21 @@ import { Fragment } from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements';
+import PropTypes from 'prop-types';
 
-export default function ListInfo() {
+export function ListInfos({ datas }) {
+  return datas.map((e, i) =>
+    <ListInfo
+      key={i}
+      foodName={e.foodName}
+      kcal={e.kcal}
+      volume={e.volume}
+      unit={e.unit}
+    />
+  );
+}
+
+export default function ListInfo({ foodName, kcal, volume, unit }) {
   const [checked, setChecked] = useState(false);
 
   const handleOnPress = (e) => {
@@ -25,15 +38,15 @@ export default function ListInfo() {
           borderLeftColor: '#444444',
           borderRightColor: '#444444',
           borderWidth: 0.2,
-          padding: 12,
+          padding: 8,
         }}
       >
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
           <View>
-            <Text style={styles.textTop}>乳清蛋白飲(鴛鴦奶茶)(果果堅果)</Text>
+            <Text style={styles.textTop}>{foodName}</Text>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={styles.textDown}>25kg  </Text>
-              <Text style={styles.textTop}>RDA 7% - 99大卡(Kcal)</Text>
+              <Text style={styles.textDown}>{`${volume}${unit}  `}</Text>
+              <Text style={styles.textTop}>{`RDA 7%  -  ${kcal} 大卡(Kcal)`}</Text>
             </View>
           </View>
           <CheckBox
@@ -43,14 +56,27 @@ export default function ListInfo() {
             size={20}
             checkedIcon="check-square"
             iconType="font-awesome"
-            onPress={(e) => {handleOnPress();} }
+            onPress={(e) => { handleOnPress(); }}
           />
-
         </View>
       </TouchableOpacity>
     </Fragment>
   );
 }
+
+ListInfo.propTypes = {
+  foodName: PropTypes.string,
+  kcal: PropTypes.number,
+  volume: PropTypes.number,
+  unit: PropTypes.string,
+};
+
+ListInfo.defaultProps = {
+  foodName: '文字文字文字',
+  kcal: 0,
+  volume: 0,
+  unit: 'g',
+};
 
 const styles = StyleSheet.create({
   textTop: {

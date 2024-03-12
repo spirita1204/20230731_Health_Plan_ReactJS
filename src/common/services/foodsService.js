@@ -34,7 +34,8 @@ const handleFetchError = (error) => {
  */
 const fetchWrapper = async (url, data) => {
     try {
-        return await fetchData(url, data);
+        const responseData = await fetchData(url, data);
+        return [true, responseData];
     } catch (error) {
         return handleFetchError(error.message);
     }
@@ -58,8 +59,24 @@ const fetchGetWrapper = async (url, data) => {
 const getRecipe = async (onSuccess, onFailure) => {
     const url = '/foods/getRecipe';
     const [success, responseData] = await fetchGetWrapper(url);
-    console.log(success, 'success');
-    console.log(responseData, 'responsedaa');
+
+    if (success) {
+        onSuccess && onSuccess(responseData);
+    } else {
+        onFailure && onFailure(responseData);
+    }
+};
+
+/**
+ * 定義 searchFood 函數，
+ * 接收 onSuccess 和 onFailure 兩個回調函數參數，
+ * 用於搜尋取得食物資料
+ * 並進行處理後通過 onSuccess 或 onFailure 回調函數返回。
+ */
+const searchFood = async (onSuccess, onFailure) => {
+    const url = '/foods/searchFood';
+    const [success, responseData] = await fetchWrapper(url);
+
     if (success) {
         onSuccess && onSuccess(responseData);
     } else {
@@ -69,5 +86,6 @@ const getRecipe = async (onSuccess, onFailure) => {
 
 // 匯出物件
 export default {
-    getRecipe
+    getRecipe,
+    searchFood
 };

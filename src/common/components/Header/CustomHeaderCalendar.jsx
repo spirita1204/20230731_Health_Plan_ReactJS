@@ -167,15 +167,12 @@ export default function CustomHeaderCalendar() {
         setShowCalendar(false); // 点击区域外部时收起日历组件
     };
 
-    console.log(screenHeight - 56 - tabBarHeight, 'total');
-
     useEffect(() => {
         if (headerRef.current && showCalendar) {
             headerRef.current.measure((x, y, width, height) => {
                 // 可用高度 = 螢幕高度 - header高度 - tabBar高度
                 const avilHeight = screenHeight - height - tabBarHeight;
                 // bottom 定義日曆透明區域範圍
-                console.log(calendarHeight - avilHeight, 'calendarHei2ght - avilHeight');
                 setBottom(calendarHeight - avilHeight);
             });
         }
