@@ -5,12 +5,15 @@ import { useTranslation } from 'react-i18next';
 // 定義 initialState 物件，包含表單狀態
 const initialState = {
     translate: () => { },
+    saveSelect: '1'
 };
 
 // 建立 FoodContext
 const FoodContext = createContext(initialState);
 
 const FoodProvider = ({ children }) => {
+
+    const [state, setState] = useState(initialState);
     /**
     * 這段程式碼是使用 React Hooks 中的 useCallback 來優化 translate 函式的效能。
     * 
@@ -34,6 +37,7 @@ const FoodProvider = ({ children }) => {
         <FoodContext.Provider
             // <FoodContext.Provider> 是用來提供 FoodContext 上下文的提供者。這是 React 中上下文的一種用法，它允許你將值傳遞給下層組件，而不必透過手動一層層地傳遞 props。
             value={{
+                ...state,
                 translate,
             }}
         >

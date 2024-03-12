@@ -30,15 +30,82 @@ FirstRoute.propTypes = {
  * 食物
  * @returns
  */
-const SecondRoute = ({ translate, onSubmitEditing, state, loading2 }) => {
+const SecondRoute = ({ translate }) => {
+    // 頁面初始狀態
+    const initialState = {
+        initial: false,
+        // 搜尋資料
+        searchDatas: [],
+    };
+
+    // 狀態變化處理函數
+    const rHandler = {
+        SET_SEARCHDATA: (state, action) => {
+            return {
+                // 複製當前狀態，只改變表格狀態
+                ...state,
+                initial: true,
+                // 複製當前表格狀態，只改變須調整狀態
+                searchDatas: action.payload
+            };
+        },
+        CLEAR_SEARCHDATA: () => {
+            return {
+                ...initialState
+            };
+        }
+    };
+
+    // 狀態更新函數
+    const reducer = (state, action) => (
+        rHandler[action.type] ? rHandler[action.type](state, action) : state
+    );
+
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     const [searchText, setSearchText] = useState('');
+    const [loading2, setLoading2] = useState(false);
+
+    /**
+     * 當使用者按下enter鍵
+     */
+    const onSubmitEditing = useCallback(() => {
+        const handleApiResponse1 = (res, status) => {
+            setLoading2(false); // 請求完成後將 loading 狀態設為 false
+            if (status) {
+                console.log('搜尋食物API成功');
+                dispatch({
+                    type: 'SET_SEARCHDATA',
+                    payload: res?.searchFoods
+                });
+                console.log(res?.searchFoods, 'searchFoods');
+            } else {
+                console.log('搜尋食物API失敗');
+            }
+        };
+        setLoading2(true);
+        // 呼叫查詢帳號 API，並傳入成功回調函數和失敗回調函數
+        api.searchFood(
+            // 定義成功回調函數
+            (res) => handleApiResponse1(res, true),
+            // 定義失敗回調函數
+            (res) => handleApiResponse1(res, false),
+        );
+    }, []);
+
     /**
      * 當使用者輸入搜尋格
      */
     const updateSearch = useCallback((search) => {
         setSearchText(search);
+        // 回復成原本搜尋結果
+        if (search == null || search == '') dispatch({ type: 'CLEAR_SEARCHDATA' });
     }, []);
+
+    const updateThenSubmit = useCallback((title) => {
+        setSearchText(title);
+        onSubmitEditing();
+    }, [onSubmitEditing]);
 
     return (
         <Fragment>
@@ -68,53 +135,38 @@ const SecondRoute = ({ translate, onSubmitEditing, state, loading2 }) => {
                     </View>
                 ) : (
                     <ScrollView>
-                        <ListInfos
-                            // 搜尋結果
-                            datas={state.searchDatas}
-                        />
+                        {/** 近期搜尋資料 */}
+                        {!state.initial &&
+                            <Fragment>
+                                <SearchHistory
+                                    title={'牛奶(2%脂肪，添加維他命A'}
+                                    onPressAndSearch={updateThenSubmit}
+                                    onPressAndPaste={updateSearch}
+                                />
+                                <SearchHistory
+                                    title={'巧克力'}
+                                    onPressAndSearch={updateThenSubmit}
+                                    onPressAndPaste={updateSearch}
+                                />
+                                <SearchHistory
+                                    title={'牛奶'}
+                                    onPressAndSearch={updateThenSubmit}
+                                    onPressAndPaste={updateSearch}
+                                />
+                            </Fragment>}
+                        {state.initial &&
+                            <ListInfos
+                                // 搜尋結果
+                                datas={state.searchDatas}
+                            />}
                     </ScrollView>
                 )}
-                {/** 近期搜尋資料 */}
-                {!state.initial && !loading2 &&
-                    <Fragment>
-                        <ScrollView>
-                            <SearchHistory
-                                title={'牛奶(2%脂肪，添加維他命A'}
-                                onPressAndSearch={(title) => {
-                                    setSearchText(title);
-                                    onSubmitEditing();
-                                }}
-                                onPressAndPaste={(title) => { setSearchText(title); }}
-                            />
-                            <SearchHistory
-                                title={'巧克力'}
-                                onPressAndSearch={(title) => {
-                                    setSearchText(title);
-                                    onSubmitEditing();
-                                }}
-                                onPressAndPaste={(title) => { setSearchText(title); }}
-                            />
-                            <SearchHistory></SearchHistory>
-                            <SearchHistory></SearchHistory>
-                            <SearchHistory></SearchHistory>
-                            <SearchHistory></SearchHistory>
-                            <SearchHistory></SearchHistory>
-                            <SearchHistory></SearchHistory>
-                            <SearchHistory></SearchHistory>
-                            <SearchHistory></SearchHistory>
-                            <SearchHistory></SearchHistory>
-                        </ScrollView>
-                    </Fragment>
-                }
             </View>
         </Fragment>
     );
 };
 SecondRoute.propTypes = {
     translate: PropTypes.func,
-    onSubmitEditing: PropTypes.func,
-    state: PropTypes.object,
-    loading2: PropTypes.bool
 };
 
 /**
@@ -175,7 +227,6 @@ export default function Foods() {
     const [index, setIndex] = useState(0);
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(true); // 新增一個 loading 狀態來追蹤 API 請求是否完成
-    const [loading2, setLoading2] = useState(false);
 
     const layout = useWindowDimensions();
 
@@ -184,33 +235,6 @@ export default function Foods() {
         translate
     } = useContext(FoodContext);
 
-    // 頁面初始狀態
-    const initialState = {
-        initial: false,
-        // 搜尋資料
-        searchDatas: [],
-    };
-
-    // 狀態變化處理函數
-    const rHandler = {
-        SET_SEARCHDATA: (state, action) => {
-            return {
-                // 複製當前狀態，只改變表格狀態
-                ...state,
-                initial: true,
-                // 複製當前表格狀態，只改變須調整狀態
-                searchDatas: action.payload
-            };
-        },
-    };
-
-    // 狀態更新函數
-    const reducer = (state, action) => (
-        rHandler[action.type] ? rHandler[action.type](state, action) : state
-    );
-
-    const [state, dispatch] = useReducer(reducer, initialState);
-
     const routes = useMemo(() => [
         { key: 'first', title: translate('FOOD.TITLE.RECIPE') }, // 食譜
         { key: 'second', title: translate('FOOD.TITLE.FOOD') },// 食物
@@ -218,35 +242,7 @@ export default function Foods() {
         { key: 'forth', title: translate('FOOD.TITLE.OFTEN_EAT') }// 經常吃的
     ], [translate]);
 
-    /**
-     * 當使用者按下enter鍵
-     */
-    const onSubmitEditing = useCallback(() => {
-        const handleApiResponse1 = (res, status) => {
-            setLoading2(false); // 請求完成後將 loading 狀態設為 false
-            if (status) {
-                console.log('搜尋食物API成功');
-                dispatch({
-                    type: 'SET_SEARCHDATA',
-                    payload: res?.searchFoods
-                });
-                console.log(res?.searchFoods, 'searchFoods');
-            } else {
-                console.log('搜尋食物API失敗');
-            }
-        };
-        setLoading2(true);
-        // 呼叫查詢帳號 API，並傳入成功回調函數和失敗回調函數
-        api.searchFood(
-            // 定義成功回調函數
-            (res) => handleApiResponse1(res, true),
-            // 定義失敗回調函數
-            (res) => handleApiResponse1(res, false),
-        );
-    }, []);
-
     const renderScene = ({ route, jumpTo }) => {
-
         switch (route.key) {
             case 'first':
                 return <FirstRoute
@@ -256,9 +252,6 @@ export default function Foods() {
                 // 透過傳遞參數方式 避免每次組件渲染造成SearchBar重新回到初始狀態
                 return <SecondRoute
                     translate={translate}
-                    onSubmitEditing={onSubmitEditing}
-                    state={state}
-                    loading2={loading2}
                 />;
             case 'third':
                 return <ThirdRoute />;

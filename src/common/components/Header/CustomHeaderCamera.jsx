@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { FoodContext } from '../../contexts/FoodContext';
 
 /**
  * 客製化照相機按鈕
@@ -9,6 +10,13 @@ import { Icon } from 'react-native-elements';
  */
 const CustomHeaderCamera = () => {
     const navigation = useNavigation();
+
+    // 交易畫面共用資料以及函數
+    const {
+        translate,
+        saveSelect
+    } = useContext(FoodContext);
+    console.log(saveSelect, 'saveSelect');
 
     const handleBackPress = () => {
         console.log('camera!!!');
