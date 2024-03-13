@@ -24,7 +24,7 @@ cd healtplan && \
 eas init --id a8c0170d-1840-4eec-8e7e-6159204c4011
 ```
 
-install
+Install
 
 ```html
 npm install @react-navigation/native
@@ -51,7 +51,7 @@ npm install i18next-http-backend
 npm install axios
 ```
 
-update
+Update
 
 ```java
 npm update
