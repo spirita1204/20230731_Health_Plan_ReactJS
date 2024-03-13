@@ -50,3 +50,39 @@ npm install intl-pluralrules
 npm install i18next-http-backend
 npm install axios
 ```
+
+update
+
+```java
+npm update
+npm cache clean --force
+npm install expo@49 --force // 更新sdk版本
+```
+
+## ESLint
+
+[How to set up ESLint in VS Code for React Native applications that use TypeScript](https://medium.com/@josiahmahachi/how-to-set-up-eslint-in-vs-code-for-react-native-applications-that-use-typescript-7a103f264d6d)
+
+## Ajax
+
+[JavaScript Promise 全介紹](https://www.casper.tw/development/2020/02/16/all-new-promise/)
+
+[JavaScript Promise 全介紹](https://www.casper.tw/development/2020/02/16/all-new-promise/)
+
+## Api串接
+
+[](https://ithelp.ithome.com.tw/articles/10253259)
+
+[Axios (in React-native) not calling server in localhost](https://stackoverflow.com/questions/42189301/axios-in-react-native-not-calling-server-in-localhost)
+
+## Docker
+
+[用 Docker 玩 Mongo - HackMD](https://hackmd.io/@SuFrank/BJOe3Fi3c)
+
+[GitHub - twtrubiks/docker-tutorial: Docker 基本教學 - 從無到有 Docker-Beginners-Guide   教你用 Docker 建立 Django + PostgreSQL 📝](https://github.com/twtrubiks/docker-tutorial?tab=readme-ov-file)
+
+```java
+docker pull mongo
+docker run --name MONGO_DB -v D:\mongoDB:/data/db -d -p 27017:27017 --rm mongo
+mongodb://localhost:27017/
+```
