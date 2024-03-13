@@ -27,7 +27,7 @@ eas init --id a8c0170d-1840-4eec-8e7e-6159204c4011
 install
 
 ```html
- npm install @react-navigation/native
+npm install @react-navigation/native
 npm install @react-navigation/stack
 npm install -- save @react-navigation/bottom-tabs
 npm install @expo/vector-icons
