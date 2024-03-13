@@ -67,8 +67,6 @@ npm install expo@49 --force // 更新sdk版本
 
 [JavaScript Promise 全介紹](https://www.casper.tw/development/2020/02/16/all-new-promise/)
 
-[JavaScript Promise 全介紹](https://www.casper.tw/development/2020/02/16/all-new-promise/)
-
 ## Api串接
 
 [](https://ithelp.ithome.com.tw/articles/10253259)
