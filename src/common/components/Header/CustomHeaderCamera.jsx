@@ -1,37 +1,48 @@
-import React, { useContext } from 'react';
+import React, { useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { FoodContext } from '../../contexts/FoodContext';
+import { Text } from 'react-native-elements';
+import { View } from 'react-native';
+import PropTypes from 'prop-types';
 
 /**
  * 客製化照相機按鈕
  * @returns 
  */
-const CustomHeaderCamera = () => {
+const CustomHeaderCamera = ({ selected, onPress }) => {
     const navigation = useNavigation();
 
-    // 交易畫面共用資料以及函數
-    const {
-        translate,
-        saveSelect
-    } = useContext(FoodContext);
-    console.log(saveSelect, 'saveSelect');
-
-    const handleBackPress = () => {
-        console.log('camera!!!');
-    };
+    const renderCameraOrTick = useMemo(() => {
+        return ((selected)
+            //  打勾
+            ?
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={{ color: '#FFFFFF', fontSize: 20, marginRight: 10 }}>{selected}</Text>
+                <Icon name="done" size={28} color="#FFFFFF" />
+            </View>
+            // 相機
+            : <Icon name="linked-camera" size={28} color="#00DD00" />
+        );
+    }, [selected]);
 
     return (
         <TouchableOpacity
-            onPress={handleBackPress}
+            onPress={onPress}
             style={{
                 marginRight: 15, // Adjust the left margin to move it to the right
                 marginTop: 5, // Adjust the top margin to move it down
             }}
         >
-            <Icon name="linked-camera" size={28} color="#00DD00" />
+            {renderCameraOrTick}
+
         </TouchableOpacity>
     );
 };
+
+CustomHeaderCamera.propTypes = {
+    selected: PropTypes.number,
+    onPress: PropTypes.func
+};
+
 export default CustomHeaderCamera;

@@ -57,14 +57,15 @@ function WrapPage() {
                 <Stack.Screen
                     name="Foods"
                     component={FoodsWrapper}
-                    options={{
-                        // 客製化打叉叉按鈕
-                        headerLeft: () => <CustomHeaderLeft />,
-                        // 可調整[早餐, 午餐, 晚餐, 點心]
-                        headerTitle: () => <CustomHeaderModal />,
-                        // 照相機
-                        headerRight: () => <CustomHeaderCamera />,
-                    }}
+                    // 交給Food組件動態設定
+                    // options={{
+                    //     // 客製化打叉叉按鈕
+                    //     headerLeft: () => <CustomHeaderLeft />,
+                    //     // 可調整[早餐, 午餐, 晚餐, 點心]
+                    //     headerTitle: () => <CustomHeaderModal />,
+                    //     // 照相機
+                    //     headerRight: () => <CustomHeaderCamera />,
+                    // }}
                 />
                 <Stack.Screen
                     name="SettingPage"

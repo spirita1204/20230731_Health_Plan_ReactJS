@@ -13,7 +13,7 @@ export function ListInfos({ datas, onPress }) {
       kcal={e.kcal}
       volume={e.volume}
       unit={e.unit}
-      onPress={onPress}
+      onPress={(checked) => onPress(i, checked)}
     />
   );
 }
@@ -23,12 +23,13 @@ export default function ListInfo({ foodName, kcal, volume, unit, onPress }) {
 
   const handleOnPress = (e) => {
     setChecked(!checked);
+    return onPress(!checked);
   };
 
   return (
     <Fragment>
       <TouchableOpacity
-        onPress={() => onPress(checked)}
+        onPress={() => { }}
         style={{
           marginRight: 0, // Adjust the left margin to move it to the right
           // marginTop: 10, // Adjust the top margin to move it down
@@ -56,7 +57,7 @@ export default function ListInfo({ foodName, kcal, volume, unit, onPress }) {
             size={20}
             checkedIcon="check-square"
             iconType="font-awesome"
-            onPress={(e) => { handleOnPress(); }}
+            onPress={() => { handleOnPress(); }}
           />
         </View>
       </TouchableOpacity>

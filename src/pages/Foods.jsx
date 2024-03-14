@@ -10,6 +10,11 @@ import ImageList from '../common/components/ImageList';
 import { FoodContext } from '../common/contexts/FoodContext';
 import api from '../common/services/foodsService';
 import { ActivityIndicator } from 'react-native';
+import useForm from '../common/hooks/useForm';
+import CustomHeaderLeft from '../common/components/Header/CustomHeaderLeft';
+import CustomHeaderCamera from '../common/components/Header/CustomHeaderCamera';
+import CustomHeaderModal from '../common/components/Header/CustomHeaderModal';
+import { useNavigation } from '@react-navigation/native';
 
 /**
  * 食譜
@@ -30,7 +35,7 @@ FirstRoute.propTypes = {
  * 食物
  * @returns
  */
-const SecondRoute = ({ translate }) => {
+const SecondRoute = ({ translate, setSelected }) => {
     // 頁面初始狀態
     const initialState = {
         initial: false,
@@ -66,7 +71,11 @@ const SecondRoute = ({ translate }) => {
     const [searchText, setSearchText] = useState('');
     const [loading2, setLoading2] = useState(false);
 
-    /**
+    const [formState, inputHandler] = useForm({
+        selectedItems: { value: [] }
+    });
+
+    /** 
      * 當使用者按下enter鍵
      */
     const onSubmitEditing = useCallback(() => {
@@ -78,7 +87,6 @@ const SecondRoute = ({ translate }) => {
                     type: 'SET_SEARCHDATA',
                     payload: res?.searchFoods
                 });
-                console.log(res?.searchFoods, 'searchFoods');
             } else {
                 console.log('搜尋食物API失敗');
             }
@@ -99,13 +107,31 @@ const SecondRoute = ({ translate }) => {
     const updateSearch = useCallback((search) => {
         setSearchText(search);
         // 回復成原本搜尋結果
-        if (search == null || search == '') dispatch({ type: 'CLEAR_SEARCHDATA' });
-    }, []);
+        if (search == null || search == '') {
+            dispatch({ type: 'CLEAR_SEARCHDATA' });
+            // 清空 讓右上角回復相機
+            setSelected(0);
+            // 避免累加錯誤
+            inputHandler('selectedItems', []);
+        }
+    }, [inputHandler, setSelected]);
 
     const updateThenSubmit = useCallback((title) => {
         setSearchText(title);
         onSubmitEditing();
     }, [onSubmitEditing]);
+
+    const handleChecked = useCallback((index, isChecked) => {
+        let selectedItems = formState.inputs.selectedItems.value;
+        // 判斷此次為新增序號或者移除序號
+        if (isChecked) {
+            selectedItems.push(index);
+        } else {
+            selectedItems = selectedItems.filter(s => s !== index);
+        }
+        inputHandler('selectedItems', selectedItems);
+        setSelected(selectedItems.length);
+    }, [formState.inputs.selectedItems.value, inputHandler, setSelected]);
 
     return (
         <Fragment>
@@ -158,7 +184,7 @@ const SecondRoute = ({ translate }) => {
                             <ListInfos
                                 // 搜尋結果
                                 datas={state.searchDatas}
-                                onPress={(e) => { console.log('12', e); }}
+                                onPress={(index, checked) => handleChecked(index, checked)}
                             />}
                     </ScrollView>
                 )}
@@ -168,6 +194,7 @@ const SecondRoute = ({ translate }) => {
 };
 SecondRoute.propTypes = {
     translate: PropTypes.func,
+    setSelected: PropTypes.func,
 };
 
 /**
@@ -223,17 +250,19 @@ const renderTabBar = (props) => (
 );
 
 export default function Foods() {
-    const route = useRoute();
+
+    const navigation = useNavigation();
 
     const [index, setIndex] = useState(0);
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(true); // 新增一個 loading 狀態來追蹤 API 請求是否完成
+    const [selected, setSelected] = useState(0);
 
     const layout = useWindowDimensions();
 
     // 交易畫面共用資料以及函數
     const {
-        translate
+        translate,
     } = useContext(FoodContext);
 
     const routes = useMemo(() => [
@@ -243,7 +272,11 @@ export default function Foods() {
         { key: 'forth', title: translate('FOOD.TITLE.OFTEN_EAT') }// 經常吃的
     ], [translate]);
 
-    const renderScene = ({ route, jumpTo }) => {
+    const handleSubmit = useCallback(() => {
+        console.log('submit');
+    }, []);
+
+    const renderScene = ({ route }) => {
         switch (route.key) {
             case 'first':
                 return <FirstRoute
@@ -253,6 +286,7 @@ export default function Foods() {
                 // 透過傳遞參數方式 避免每次組件渲染造成SearchBar重新回到初始狀態
                 return <SecondRoute
                     translate={translate}
+                    setSelected={setSelected}
                 />;
             case 'third':
                 return <ThirdRoute />;
@@ -290,6 +324,19 @@ export default function Foods() {
             (res) => handleApiResponse(res, false),
         );
     }, []);
+
+    // 在組件加載時，動態設置 header 來使相機組件可以動態顯示打勾按鈕
+    useEffect(() => {
+        navigation.setOptions({
+            headerLeft: () => <CustomHeaderLeft />,
+            headerTitle: () => <CustomHeaderModal />,
+            headerRight: () =>
+                <CustomHeaderCamera
+                    selected={selected}
+                    onPress={handleSubmit}
+                />,
+        });
+    }, [handleSubmit, navigation, selected]); // 注意传入空数组以避免 useEffect 在每次渲染时触发
 
     return (
         <Fragment>

@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 // 定義 initialState 物件，包含表單狀態
 const initialState = {
     translate: () => { },
-    saveSelect: '1'
 };
 
 // 建立 FoodContext
