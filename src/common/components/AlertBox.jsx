@@ -75,7 +75,7 @@ export default function AlertBox() {
                                 context={'在最新的更新當中，HealthPlan應用程式的所有功能現都以支援烏克蘭語，這項更新為我們的烏克蘭語使用者提供了更直觀、更熟悉的應用程式體驗。'}
                                 image={'https://i1.poltava.to/uploads/2022/03/2022-03-17/visit-ukraine-today.jpg'}
                                 href={'立即體驗'}
-                                onPress={() => console.log('aaaa')}
+                                onPress={() => {}}
                             />
                             <News
                                 date={'2023年07月'}

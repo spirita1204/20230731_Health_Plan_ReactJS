@@ -84,8 +84,46 @@ const searchFood = async (onSuccess, onFailure) => {
     }
 };
 
+/**
+ * 定義 saveFoods 函數，
+ * 接收 onSuccess 和 onFailure 兩個回調函數參數，
+ * 用於儲存食物資料
+ * 並進行處理後通過 onSuccess 或 onFailure 回調函數返回。
+ */
+const saveFoods = (onSuccess, onFailure) => {
+    return async (ITEMS, TYPE, DATE) => {
+        const url = '/foods/saveFoods';
+        let type;
+        switch (TYPE) {
+            case 'BREAKFAST':
+                type = '0';
+                break;
+            case 'LUNCH':
+                type = '1';
+                break;
+            case 'DINNER':
+                type = '2';
+                break;
+            case 'SWEETS':
+                type = '3';
+                break;
+            default:
+                type = '0';
+        }
+        const data = { ITEMS, TYPE: type, DATE };
+        const [success, responseData] = await fetchWrapper(url, data);
+
+        if (success) {
+            onSuccess && onSuccess(responseData);
+        } else {
+            onFailure && onFailure(responseData);
+        }
+    };
+};
+
 // 匯出物件
 export default {
     getRecipe,
-    searchFood
+    searchFood,
+    saveFoods,
 };

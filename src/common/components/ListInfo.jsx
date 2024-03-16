@@ -13,7 +13,7 @@ export function ListInfos({ datas, onPress }) {
       kcal={e.kcal}
       volume={e.volume}
       unit={e.unit}
-      onPress={(checked) => onPress(i, checked)}
+      onPress={(checked) => onPress(e.id, checked)}
     />
   );
 }

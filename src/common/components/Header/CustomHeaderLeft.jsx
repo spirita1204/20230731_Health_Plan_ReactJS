@@ -11,7 +11,7 @@ const CustomHeaderLeft = () => {
     const navigation = useNavigation();
 
     const handleBackPress = () => {
-        navigation.navigate('HomePage');
+        navigation.navigate('TabBar');
     };
 
     return (

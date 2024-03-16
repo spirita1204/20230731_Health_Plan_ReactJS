@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 創建 Axios 實例，設定預設的config物件
 const axiosInstance = axios.create({
-  baseURL: 'http://192.168.142.116:8080',
+  baseURL: 'http://192.168.227.116:8080',
   // 設置默認的請求標頭
   headers: {
     'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export function get(url, params = {}, options = {}) {
  */
 export function post(url, data = {}) {
   return new Promise((resolve, reject) => {
-    axiosInstance.post(url, { Data: data })
+    axiosInstance.post(url, data)
       .then(response => {
         resolve(response.data);
       }, err => {
@@ -59,7 +59,6 @@ export function postTest(url, data) {
   return new Promise((resolve, reject) => {
     axios.post('http://192.168.135.116:8080/api/v1/movies')
       .then((response) => {
-        console.log('PostTest_response');
         resolve([
           true,
           'Request successful',
@@ -68,7 +67,6 @@ export function postTest(url, data) {
         ]);
       })
       .catch((error) => {
-        console.log(error, 'PostTest_error');
         reject([
           false,
           'Request failed',

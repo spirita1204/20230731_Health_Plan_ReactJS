@@ -5,8 +5,6 @@ const SearchBox = () => {
   const [searchText, setSearchText] = useState('');
 
   const handleSearch = (text) => {
-    // Handle search logic here
-    console.log('Search Text:', text);
     setSearchText(text);
   };
 

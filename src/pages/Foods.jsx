@@ -35,11 +35,18 @@ FirstRoute.propTypes = {
  * 食物
  * @returns
  */
-const SecondRoute = ({ translate, setSelected }) => {
+const SecondRoute = ({ translate, setSelected, inputHandler, formState, loading2, setLoading2 }) => {
     // 頁面初始狀態
     const initialState = {
         initial: false,
         // 搜尋資料
+        // {
+        //     "id": "65e83a784a44c0d9c8045cc9",
+        //     "foodName": "雞胸肉",
+        //     "kcal": 110,
+        //     "volume": 100,
+        //     "unit": "克"
+        // }
         searchDatas: [],
     };
 
@@ -69,11 +76,6 @@ const SecondRoute = ({ translate, setSelected }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const [searchText, setSearchText] = useState('');
-    const [loading2, setLoading2] = useState(false);
-
-    const [formState, inputHandler] = useForm({
-        selectedItems: { value: [] }
-    });
 
     /** 
      * 當使用者按下enter鍵
@@ -99,7 +101,7 @@ const SecondRoute = ({ translate, setSelected }) => {
             // 定義失敗回調函數
             (res) => handleApiResponse1(res, false),
         );
-    }, []);
+    }, [setLoading2]);
 
     /**
      * 當使用者輸入搜尋格
@@ -121,13 +123,13 @@ const SecondRoute = ({ translate, setSelected }) => {
         onSubmitEditing();
     }, [onSubmitEditing]);
 
-    const handleChecked = useCallback((index, isChecked) => {
+    const handleChecked = useCallback((id, isChecked) => {
         let selectedItems = formState.inputs.selectedItems.value;
         // 判斷此次為新增序號或者移除序號
         if (isChecked) {
-            selectedItems.push(index);
+            selectedItems.push(id);
         } else {
-            selectedItems = selectedItems.filter(s => s !== index);
+            selectedItems = selectedItems.filter(s => s !== id);
         }
         inputHandler('selectedItems', selectedItems);
         setSelected(selectedItems.length);
@@ -184,7 +186,7 @@ const SecondRoute = ({ translate, setSelected }) => {
                             <ListInfos
                                 // 搜尋結果
                                 datas={state.searchDatas}
-                                onPress={(index, checked) => handleChecked(index, checked)}
+                                onPress={(id, checked) => handleChecked(id, checked)}
                             />}
                     </ScrollView>
                 )}
@@ -195,6 +197,11 @@ const SecondRoute = ({ translate, setSelected }) => {
 SecondRoute.propTypes = {
     translate: PropTypes.func,
     setSelected: PropTypes.func,
+    inputHandler: PropTypes.func,
+    formState: PropTypes.object,
+    loading2: PropTypes.bool,
+    setLoading2: PropTypes.func
+
 };
 
 /**
@@ -250,13 +257,18 @@ const renderTabBar = (props) => (
 );
 
 export default function Foods() {
+    /**
+     * 由Note組件所傳遞之當前所選[早餐, 午餐, 晚餐, 點心] 狀態
+     */
+    const route = useRoute();
 
     const navigation = useNavigation();
 
     const [index, setIndex] = useState(0);
-    const [recipes, setRecipes] = useState([]);
+    const [recipes, setRecipes] = useState([]);// 食譜資料
     const [loading, setLoading] = useState(true); // 新增一個 loading 狀態來追蹤 API 請求是否完成
-    const [selected, setSelected] = useState(0);
+    const [loading2, setLoading2] = useState(false);
+    const [selected, setSelected] = useState(0);// 被選重要更改資料
 
     const layout = useWindowDimensions();
 
@@ -265,6 +277,10 @@ export default function Foods() {
         translate,
     } = useContext(FoodContext);
 
+    const [formState, inputHandler] = useForm({
+        selectedItems: { value: [] }
+    });
+
     const routes = useMemo(() => [
         { key: 'first', title: translate('FOOD.TITLE.RECIPE') }, // 食譜
         { key: 'second', title: translate('FOOD.TITLE.FOOD') },// 食物
@@ -272,9 +288,39 @@ export default function Foods() {
         { key: 'forth', title: translate('FOOD.TITLE.OFTEN_EAT') }// 經常吃的
     ], [translate]);
 
+    /**
+     * 將選擇資料儲存到DB
+     */
     const handleSubmit = useCallback(() => {
-        console.log('submit');
-    }, []);
+        setLoading2(true); // 請求完成後將 loading 狀態設為 false
+        // 日期, [早餐], 食物ID
+        const {
+            selectedItems: { value: selectedItemsVal }
+        } = formState.inputs;
+
+        const handleApiResponse = (res) => {
+            setLoading2(false); // 請求完成後將 loading 狀態設為 false
+            // 儲存成功
+            if (res) {
+                navigation.navigate('TabBar');
+            }
+            // 儲存失敗 TODO
+            else {
+                // 
+            }
+        };
+        const saveFoodsCurried = api.saveFoods(
+            // 定義成功回調函數
+            (res) => handleApiResponse(res, true),
+            // 定義失敗回調函數
+            (res) => handleApiResponse(res, false),
+        );
+        saveFoodsCurried(
+            selectedItemsVal, // 欲更新資料
+            route?.params?.choose, // 所選之Type
+            route?.params?.selectedDate, // 所選之日期            
+        );
+    }, [formState.inputs, navigation, route?.params?.choose, route?.params?.selectedDate]);
 
     const renderScene = ({ route }) => {
         switch (route.key) {
@@ -287,6 +333,10 @@ export default function Foods() {
                 return <SecondRoute
                     translate={translate}
                     setSelected={setSelected}
+                    formState={formState}
+                    inputHandler={inputHandler}
+                    loading2={loading2}
+                    setLoading2={setLoading2}
                 />;
             case 'third':
                 return <ThirdRoute />;
@@ -298,8 +348,6 @@ export default function Foods() {
     };
 
     useEffect(() => {
-        console.log('取得食譜');
-
         const handleApiResponse = (res, status) => {
             setLoading(false); // 請求完成後將 loading 狀態設為 false
             if (status) {

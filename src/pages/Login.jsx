@@ -17,10 +17,9 @@ const Login = ({ navigation }) => {
     const [password, setPassword] = useState('');
 
     const handleLogin = () => {
-        console.log('login');
         // 在這裡處理登入邏輯，這裡簡單地假設輸入正確即為登入成功
         if (username === 'daniel' && password === 'daniel13579') {
-            navigation.navigate('HomePage');
+            navigation.navigate('TabBar');
         }
     };
 

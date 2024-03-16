@@ -14,6 +14,7 @@ import { Calendar } from 'react-native-calendars';
 import { LocaleConfig } from 'react-native-calendars';
 import PropTypes from 'prop-types';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { formateToday } from '../../utils/formatDate';
 
 /**
  * 自定義配置 顯示中文日期(TODO)
@@ -26,22 +27,12 @@ LocaleConfig.locales['tw'] = {
 };
 LocaleConfig.defaultLocale = 'tw';
 
-const formateToday = (addDay = 0) => {
-    // Get current date
-    const currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() + addDay);
-    // Get year, month, and day
-    const year = currentDate.getFullYear();
-    // Month starts from 0 (January is 0, February is 1, etc.)
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Add 1 to month to match human-readable format
-    const day = String(currentDate.getDate()).padStart(2, '0');
-
-    // Format the date as 'YYYY-MM-DD'
-    const formattedDate = `${year}-${month}-${day}`;
-    return formattedDate;
+CustomHeaderCalendar.propTypes = {
+    selectedDate: PropTypes.string,
+    setSelectedDate: PropTypes.func,
 };
 
-export default function CustomHeaderCalendar() {
+export default function CustomHeaderCalendar({selectedDate, setSelectedDate}) {
 
     // 用來定樣日曆以外透明區域座標buttom
     const [bottom, setBottom] = useState(-329);// -329
@@ -49,13 +40,9 @@ export default function CustomHeaderCalendar() {
     const [calendarHeight, setCalendarHeight] = useState(0);// 314.3333435058594
     // 是否顯示日曆
     const [showCalendar, setShowCalendar] = useState(false);
-    // 定義選擇日期
-    const [selectedDate, setSelectedDate] = useState(formateToday());
 
     // 獲取header的Ref
     const headerRef = useRef(null);
-    // 獲取日立高度的Ref
-    const calendarRef = useRef(null);
     // 定義動畫的ref
     const animation = useRef(new Animated.Value(0)).current;
 
@@ -68,7 +55,6 @@ export default function CustomHeaderCalendar() {
      * 展開日曆
      */
     const expandCalendar = () => {
-        console.debug('expandCalendar');
         Animated.timing(animation, {
             toValue: 1,
             duration: 300,
@@ -81,7 +67,6 @@ export default function CustomHeaderCalendar() {
      * 收闔日曆
      */
     const collapseCalendar = () => {
-        console.debug('collapseCalendar');
         Animated.timing(animation, {
             toValue: 0,
             duration: 300,
@@ -110,7 +95,6 @@ export default function CustomHeaderCalendar() {
      * @param {*String} date // 2024-02-09
      */
     const handleDateSelection = (date) => {
-        console.log('Selected date:', date);
         setSelectedDate(date?.dateString);
         // 選完日期後隱藏日曆下拉菜單
         setShowCalendar(false);
@@ -226,9 +210,7 @@ export default function CustomHeaderCalendar() {
                     // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
                     monthFormat={'yyyy MM'}
                     // Handler which gets executed when visible month changes in calendar. Default = undefined
-                    onMonthChange={month => {
-                        console.log('month changed', month);
-                    }}
+                    onMonthChange={month => {}}
                     firstDay={1}
                     // Disable all touch events for disabled days. can be override with disableTouchEvent in markedDates
                     disableAllTouchEventsForDisabledDays={true}
@@ -268,9 +250,6 @@ export default function CustomHeaderCalendar() {
     );
 }
 
-CustomHeaderCalendar.propTypes = {
-    headerHeight: PropTypes.number
-};
 
 const styles = StyleSheet.create({
     text: {

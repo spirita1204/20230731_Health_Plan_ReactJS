@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import LongPressButton from '../common/components/Button/LongPressButton';
 import DonutPieChart from '../common/components/Charts/DonutPieChart';
@@ -7,7 +7,12 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Image, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { NoteContext } from '../common/contexts/NoteContext';
+import CustomHeaderCalendar from '../common/components/Header/CustomHeaderCalendar';
+import CustomHeaderCalendarIcon from '../common/components/Header/CustomHeaderCalendarIcon';
+import CustomHeaderSearch from '../common/components/Header/CustomHeaderSearch';
+import { formateToday } from '../common/utils/formatDate';
 import api from '../common/services/noteService';
+
 /**
  * 日記
  * 
@@ -18,6 +23,8 @@ import api from '../common/services/noteService';
  * @returns 
  */
 export default function Note({ navigation }) {
+
+    const [selectedDate, setSelectedDate] = useState(formateToday());
     // 交易畫面共用資料以及函數
     const {
         translate
@@ -27,23 +34,39 @@ export default function Note({ navigation }) {
        * 導向食物導覽頁
        */
     const handlClick = useCallback((choose) => {
-        navigation.navigate('Foods', { choose: choose });
-    }, [navigation]);
+        navigation.navigate('Foods', {
+            choose: choose,
+            selectedDate: selectedDate
+        });
+    }, [navigation, selectedDate]);
 
+    // 在組件加載時，動態設置 header
     useEffect(() => {
-        console.log('into useeffect');
-        // const handleApiResponse = (res, status) => {
-        //     console.log(status, '[status]');
-        // };
+        navigation.setOptions({
+            headerShown: true, // 顯示標題欄
+            headerLeft: () => (
+                <CustomHeaderCalendar
+                    selectedDate={selectedDate}
+                    setSelectedDate={setSelectedDate}
+                /> // 小日曆
+            ),
+            headerRight: () => (
+                <Fragment>
+                    <View style={{ flexDirection: 'row' }}>
+                        {/* 日曆按鈕 */}
+                        <CustomHeaderCalendarIcon />
+                        {/* 搜尋按鈕 */}
+                        <CustomHeaderSearch />
+                    </View>
+                </Fragment>
 
-        // // 呼叫查詢帳號 API，並傳入成功回調函數和失敗回調函數
-        // api.fetchAccountData(
-        //     // 定義成功回調函數
-        //     (res) => handleApiResponse(res, true),
-        //     // 定義失敗回調函數(非營業時間使用本交易)
-        //     (res) => handleApiResponse(res, false),
-        // );
-    }, []);
+            ),
+            headerStyle: {
+                backgroundColor: '#444444', // 設置標題背景顏色
+            },
+            headerTitle: () => null, // 不顯示標題
+        });
+    }, [navigation, selectedDate]);
 
     return (
         <Fragment>
@@ -144,6 +167,7 @@ export default function Note({ navigation }) {
 Note.propTypes = {
     navigation: PropTypes.shape({
         navigate: PropTypes.func.isRequired,
+        setOptions: PropTypes.func
     })
 };
 
