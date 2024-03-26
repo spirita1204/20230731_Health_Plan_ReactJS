@@ -1,9 +1,9 @@
 ## 紀錄 習慣
 
-- React Native
-- Spring boot
-- MongoDB noSql
-- Docker → DB + Redis+ Nginx(load balancer)
+- React Native v
+- Spring boot  v
+- MongoDB noSql  v
+- Docker → DB + Redis+ Nginx(load balancer) v
 - 上雲
 - 上架google store
 
