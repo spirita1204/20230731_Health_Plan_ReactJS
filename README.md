@@ -103,7 +103,7 @@ npx react-native run-android
 
 [No metro config found](https://www.reddit.com/r/reactjs/comments/15a6aar/no_metro_config_found/)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/81bfe8e8-c2fe-4d29-8949-0ba3cf293f0f/178a4aa3-d089-4413-9a6b-ce991f36d89a/Untitled.png)
+![plot](./image/螢幕擷取畫面 2024-03-26 130024.png)  
 
 ```java
 npx expo customize metro.config.js
