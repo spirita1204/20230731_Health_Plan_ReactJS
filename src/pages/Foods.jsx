@@ -35,7 +35,7 @@ FirstRoute.propTypes = {
  * 食物
  * @returns
  */
-const SecondRoute = ({ translate, setSelected, inputHandler, formState, loading2, setLoading2 }) => {
+const SecondRoute = ({ translate, inputHandler, formState, loading2, setLoading2, setFormData }) => {
     // 頁面初始狀態
     const initialState = {
         initial: false,
@@ -111,12 +111,10 @@ const SecondRoute = ({ translate, setSelected, inputHandler, formState, loading2
         // 回復成原本搜尋結果
         if (search == null || search == '') {
             dispatch({ type: 'CLEAR_SEARCHDATA' });
-            // 清空 讓右上角回復相機
-            setSelected(0);
             // 避免累加錯誤
             inputHandler('selectedItems', []);
         }
-    }, [inputHandler, setSelected]);
+    }, [inputHandler]);
 
     const updateThenSubmit = useCallback((title) => {
         setSearchText(title);
@@ -132,8 +130,7 @@ const SecondRoute = ({ translate, setSelected, inputHandler, formState, loading2
             selectedItems = selectedItems.filter(s => s !== id);
         }
         inputHandler('selectedItems', selectedItems);
-        setSelected(selectedItems.length);
-    }, [formState.inputs.selectedItems.value, inputHandler, setSelected]);
+    }, [formState.inputs.selectedItems.value, inputHandler]);
 
     return (
         <Fragment>
@@ -196,12 +193,11 @@ const SecondRoute = ({ translate, setSelected, inputHandler, formState, loading2
 };
 SecondRoute.propTypes = {
     translate: PropTypes.func,
-    setSelected: PropTypes.func,
     inputHandler: PropTypes.func,
     formState: PropTypes.object,
     loading2: PropTypes.bool,
-    setLoading2: PropTypes.func
-
+    setLoading2: PropTypes.func,
+    setFormData: PropTypes.func
 };
 
 /**
@@ -268,7 +264,6 @@ export default function Foods() {
     const [recipes, setRecipes] = useState([]);// 食譜資料
     const [loading, setLoading] = useState(true); // 新增一個 loading 狀態來追蹤 API 請求是否完成
     const [loading2, setLoading2] = useState(false);
-    const [selected, setSelected] = useState(0);// 被選重要更改資料
 
     const layout = useWindowDimensions();
 
@@ -277,7 +272,7 @@ export default function Foods() {
         translate,
     } = useContext(FoodContext);
 
-    const [formState, inputHandler] = useForm({
+    const [formState, inputHandler, setFormData] = useForm({
         selectedItems: { value: [] }
     });
 
@@ -332,8 +327,8 @@ export default function Foods() {
                 // 透過傳遞參數方式 避免每次組件渲染造成SearchBar重新回到初始狀態
                 return <SecondRoute
                     translate={translate}
-                    setSelected={setSelected}
                     formState={formState}
+                    setFormData={setFormData}
                     inputHandler={inputHandler}
                     loading2={loading2}
                     setLoading2={setLoading2}
@@ -380,11 +375,11 @@ export default function Foods() {
             headerTitle: () => <CustomHeaderModal />,
             headerRight: () =>
                 <CustomHeaderCamera
-                    selected={selected}
+                    selected={formState.inputs.selectedItems.value.length}
                     onPress={handleSubmit}
                 />,
         });
-    }, [handleSubmit, navigation, selected]); // 注意传入空数组以避免 useEffect 在每次渲染时触发
+    }, [formState.inputs.selectedItems.value, handleSubmit, navigation]); // 注意传入空数组以避免 useEffect 在每次渲染时触发
 
     return (
         <Fragment>

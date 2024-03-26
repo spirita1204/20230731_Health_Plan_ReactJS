@@ -15,13 +15,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true  
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.daniel1204.healtplan"
     },
     "web": {
       "favicon": "./assets/favicon.png"

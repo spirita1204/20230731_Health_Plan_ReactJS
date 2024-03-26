@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 創建 Axios 實例，設定預設的config物件
 const axiosInstance = axios.create({
-  baseURL: 'http://192.168.227.116:8080',
+  baseURL: 'http://192.168.83.116:8080',
   // 設置默認的請求標頭
   headers: {
     'Content-Type': 'application/json',
