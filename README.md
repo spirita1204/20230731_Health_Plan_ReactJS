@@ -1,6 +1,6 @@
 ## 紀錄 習慣
 
-- React Native v
+- React Native v(Expo Cli -> React Native Cli)
 - Spring boot  v
 - MongoDB noSql  v
 - Docker → DB + Redis+ Nginx(load balancer) v
